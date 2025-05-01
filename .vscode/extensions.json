@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "vunguyentuan.vscode-css-variables",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "howardzuo.vscode-npm-dependency",
+    "andygongea.update-now",
+    "lokalise.i18n-ally"
+  ]
+}
