@@ -1,0 +1,11 @@
+---
+description: Rules for effectively utilizing Chrome's browser APIs, including error handling and scheduling tasks.
+globs: **/*.ts
+alwaysApply: false
+---
+- Utilize browser.* APIs effectively, browser.* is equal with chrome.* APIs (e.g., browser.tabs, browser.storage, browser.runtime)
+  - Use 'storage.defineItem' (`import { storage } from "wxt/utils/storage";`) API instead of 'browser.storage', storage.defineItem is a wrapper for 'browser.storage', its documentation comes from [storage](mdc:https:/wxt.dev/storage.html).
+  - Use 'defineExtensionMessaging', 'defineWindowMessaging', 'defineCustomEventMessaging' (`import { defineExtensionMessaging } from '@webext-core/messaging';import { defineWindowMessaging } from '@webext-core/messaging/page';import { defineCustomEventMessaging } from '@webext-core/messaging/page';`) API instead of 'browser.runtime.onMessage', 'window.postMessage / window.addEventListener("message")'. '@webext-core/messaging' is a wrapper package for extension messaging, its documentation comes from [WebExtCoreMessaging](mdc:https://webext-core.aklinker1.io/messaging/api). 
+
+- Implement proper error handling for all API calls
+- Use browser.alarms for scheduling tasks instead of setInterval

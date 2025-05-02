@@ -1,0 +1,71 @@
+---
+description: 
+globs: **/entrypoints/**/*.html, **/*.css, **/*.styled.ts, **/styled.ts
+alwaysApply: false
+---
+- Create responsive designs for popup and options pages
+- Use CSS Grid or Flexbox for layouts
+- Implement consistent styling across all extension UI elements
+- Use CSS-in-JS to style components whenever possible, and use `.css` files wherever possible
+- Use the emotion collection to implement the necessary functions of CSS-in-JS, e.g. `@emotion/styled`, `@emotion/css`, `@emotion/cache`, `@emotion/is-prop-valid`, the official documentation cons from [Emotion](https://emotion.sh).
+- Coding Style about CSS-IN-JS:
+  - Use the `css` prop for inline styles and `styled` for component-based styles
+  - Leverage the power of CSS-in-JS for dynamic styling and theming
+  - Implement a consistent naming convention for your styled components
+  - Use the `keyframes` function for animations to keep them scoped to components
+  - styled components based on `@emotion/styled`, named with prefix called `Styled`, e.g.
+    ```typescript
+    import styled from '@emotion/styled';
+
+    export const StyledHeader = styled.header({
+      display: 'flex'
+    })
+
+    ```
+- Component style attributes rule:
+  -Using *object style* instead of *literal style*(template literal for string styles) for styled components and css composition as possible. e.g.
+  ```typescript
+  import styled from '@emotion/styled';
+
+  /**
+   * Recommended: Create Component with Object
+   */
+  export const StyledHeader = styled.header({
+    display: 'flex',
+    backgroundColor: '#fff'
+  })
+  /**
+   * Not Recommended: Create Component with literal template
+   */
+  export const StyledHeader = styled.header`
+    display: flex;
+    background-color: #fff;
+  `
+  ```
+- Component style compositing rules:
+  - Using styled element with customizing prop forwarding, if there are any custom props defined.
+  - Do NOT using styled component wrap any existing react component as possible. for example:
+    ```typescript
+    import isPropValid from '@emotion/is-prop-valid'
+    import styled from '@emotion/styled'
+
+    import { Button } 'antd'
+
+    /**
+     * Recommended Style
+     */
+    const RedTitle = styled('h1', {
+      shouldForwardProp: prop => isPropValid(prop) && prop !== 'color'
+    })<{ color: string }>({ color } => ({
+      color: color
+    }));
+    /**
+     * Not Recommended Style
+     */
+    const StyledButton = styled(Button)<{ custom: string }>(({ custom }) => ({
+      '--custom-var': custom
+    }));
+
+    ```
+
+
