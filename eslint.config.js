@@ -87,9 +87,10 @@ export default tseslint.config(
               '^@vitejs',
               '^vite-plugin',
             ],
+            ['debug', '^@debug'],
             ['react|react-dom|react-router-dom|react-router', '^@tanstack', '^react-(?!transition-state)', '^use-'],
             [
-              'antd|react-icons|ahooks|axios|immer|@emotion',
+              'antd|lucide-react|ahooks|axios|immer|@emotion',
               'react-transition-state',
               'radix-ui',
               '@radix-ui',
@@ -119,7 +120,8 @@ export default tseslint.config(
       ],
     },
     settings: {
-      react: { version: '18.3' },
+      react: { version: '19.1.0' },
+      'import-x/core-modules': ['#imports'],
     },
   },
   {

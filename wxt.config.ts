@@ -48,15 +48,17 @@ export default defineConfig({
     ],
   },
   alias: {
-    '@assets': './assets',
-    '@views': './views',
-    '@common': './common',
     '@api': './api',
+    '@assets': './assets',
+    '@background': './background',
+    '@configs': './configs',
+    '@common': './common',
+    '@components': './components',
+    '@content-scripts': './content-scripts',
+    '@debug': './debug',
+    '@hooks': './hooks',
     '@utils': './utils',
     '@styles': './styles',
-    '@components': './components',
-    '@background': './background',
-    '@hooks': './hooks',
   },
   imports: {
     eslintrc: {
