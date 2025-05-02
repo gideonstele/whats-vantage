@@ -1,0 +1,4 @@
+{
+  "!(public|.vscode|assets|.cursor)/**/*.{ts,tsx}": ["eslint --fix", "prettier --write"],
+  "!(public|.vscode|assets|.cursor)/**/*.{css,scss}": ["prettier --write"]
+}
