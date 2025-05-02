@@ -1,13 +1,13 @@
 ---
 description: 
-globs: **/entrypoints/**/*.html, **/*.css, **/*.styled.ts, **/styled.ts
+globs: **/entrypoints/**/*.html, **/*.css, **/*.styled.ts, **/styled.ts,**/styled.tsx,**/*.styled.tsx
 alwaysApply: false
 ---
 - Create responsive designs for popup and options pages
 - Use CSS Grid or Flexbox for layouts
 - Implement consistent styling across all extension UI elements
 - Use CSS-in-JS to style components whenever possible, and use `.css` files wherever possible
-- Use the emotion collection to implement the necessary functions of CSS-in-JS, e.g. `@emotion/styled`, `@emotion/css`, `@emotion/cache`, `@emotion/is-prop-valid`, the official documentation cons from [Emotion](https://emotion.sh).
+- Use the emotion collection to implement the necessary functions of CSS-in-JS, e.g. `@emotion/styled`, `@emotion/css`, `@emotion/cache`, `@emotion/is-prop-valid`, the official documentation comes from [Emotion](mdc:https:/emotion.sh).
 - Coding Style about CSS-IN-JS:
   - Use the `css` prop for inline styles and `styled` for component-based styles
   - Leverage the power of CSS-in-JS for dynamic styling and theming
