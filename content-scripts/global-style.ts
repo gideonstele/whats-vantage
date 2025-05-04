@@ -68,6 +68,11 @@ export const overrideGlobalStyles = `
     
   }
 
+  .lucide {
+    width: 1em;
+    height: 1em;
+  }
+
   ._aigs {
     --sw-header-height: 48px;
     box-sizing: border-box !important;

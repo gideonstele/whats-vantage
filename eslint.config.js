@@ -95,7 +95,7 @@ export default tseslint.config(
               'radix-ui',
               '@radix-ui',
               '^@webext-core\\/',
-              '^@ant-design',
+              '^@ant-design\\/',
             ],
             ['^@\\w', '^types\\/'],
             ['^\\.\\.(?!/?$)', '^\\.\\./?$'],

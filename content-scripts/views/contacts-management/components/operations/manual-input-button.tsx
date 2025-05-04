@@ -115,7 +115,10 @@ export const ManualInputButton = () => {
         >
           <Form.List name="contacts">
             {(fields, { add, remove }) => (
-              <>
+              <Flex
+                vertical
+                gap={12}
+              >
                 <Flex
                   vertical
                   gap={12}
@@ -155,7 +158,7 @@ export const ManualInputButton = () => {
                     增加
                   </Button>
                 </Flex>
-              </>
+              </Flex>
             )}
           </Form.List>
         </Form>
