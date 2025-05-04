@@ -1,4 +1,4 @@
-import { forwardRef, Fragment, memo, MouseEventHandler, ReactNode } from 'react';
+import { forwardRef, Fragment, memo, MouseEventHandler, ReactNode, useMemo } from 'react';
 
 import { MenubarContentProps, MenubarPortal } from '@radix-ui/react-menubar';
 

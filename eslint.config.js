@@ -78,7 +78,7 @@ export default tseslint.config(
         'warn',
         {
           groups: [
-            ['core-js', 'core-js/es'],
+            ['core-js', 'core-js/es', '#imports'],
             [
               'lodash|dayjs|dexie|clsx|json-stable-stringify|ajax-hook',
               '^dexie-',
@@ -97,7 +97,7 @@ export default tseslint.config(
               '^@webext-core\\/',
               '^@ant-design',
             ],
-            ['^@\\w'],
+            ['^@\\w', '^types\\/'],
             ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
             ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
             ['^\\w'],

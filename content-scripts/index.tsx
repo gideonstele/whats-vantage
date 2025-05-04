@@ -12,6 +12,7 @@ import { MessageProvider } from '@hooks/use-message';
 import { NotificationProvider } from '@hooks/use-notification';
 
 import { wppQueryClient } from './query/client';
+import { ContentScriptsApp } from './app';
 import { overrideGlobalStyles } from './global-style';
 
 export function mountApp(uiContainer: HTMLElement) {
@@ -56,7 +57,7 @@ export function mountApp(uiContainer: HTMLElement) {
         >
           <MessageProvider>
             <NotificationProvider>
-              <div className="test">test</div>
+              <ContentScriptsApp />
             </NotificationProvider>
           </MessageProvider>
         </ConfigProvider>

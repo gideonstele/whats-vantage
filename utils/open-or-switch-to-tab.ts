@@ -1,3 +1,5 @@
+import { browser } from '#imports';
+
 import { getUrlEndWithSlash } from './url';
 
 export const openOrSwitchToTab = async (url: string, queryUrl?: string) => {

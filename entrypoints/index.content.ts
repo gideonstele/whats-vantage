@@ -1,8 +1,12 @@
+import { createIntegratedUi, defineContentScript, injectScript, IntegratedContentScriptUi } from '#imports';
+
 import { logContentScripts as debugConsole } from '@debug';
 
 import { WHATS_APP_WEB_URL_PATTERN } from '@configs/consts';
 import { mountApp } from '@content-scripts';
 import { mountAppHeaderDom } from '@content-scripts/dom/external';
+import { initReadyStateListener } from '@content-scripts/external-stores/ready-state';
+import { initWppContentScriptsMessager } from '@content-scripts/messager';
 
 import { HostDomObserver } from '@/content-scripts/host-dom-observer';
 
@@ -10,7 +14,11 @@ export default defineContentScript({
   matches: [WHATS_APP_WEB_URL_PATTERN],
   runAt: 'document_end',
   async main(ctx) {
-    injectScript('/wppconnect__wa.js', {
+    await injectScript('/wppconnect__wa.js', {
+      keepInDom: true,
+    });
+
+    await injectScript('/inject.js', {
       keepInDom: true,
     });
 
@@ -57,5 +65,9 @@ export default defineContentScript({
     ui = createUi();
 
     ui.mount();
+
+    initReadyStateListener();
+
+    initWppContentScriptsMessager();
   },
 });

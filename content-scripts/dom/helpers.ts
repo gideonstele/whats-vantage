@@ -1,12 +1,12 @@
-interface InsertSectionDomOptions {
+interface InsertSectionElementDomOptions {
   attributes?: Record<string, string>;
   insertBefore?: HTMLDivElement;
   existingSelector?: string;
 }
 
-export const insertSectionDom = <T extends HTMLElement>(
+export const insertSectionElement = <T extends HTMLElement>(
   parent: T,
-  options: InsertSectionDomOptions,
+  options: InsertSectionElementDomOptions,
 ): HTMLDivElement => {
   if (options.existingSelector) {
     const $existing = parent.querySelector<HTMLDivElement>(options.existingSelector);

@@ -6,7 +6,7 @@ import { createPortal } from 'react-dom';
 import { ErrorBoundary } from '@components/error-boundry';
 import { createExternalState } from '@hooks/create-external-store';
 
-import { insertSectionDom } from './helpers';
+import { insertSectionElement } from './helpers';
 
 export const [whatsAppHeaderDomStore, useWhatsAppHeaderDom] = createExternalState<HTMLDivElement | null>(
   null,
@@ -30,8 +30,8 @@ export const [whatsAppContainerDomStore, useWhatsAppContainerDom] = createExtern
   },
 );
 
-export const mountAppHeaderDom = (dom: HTMLDivElement) => {
-  const $headerWrapper = insertSectionDom(dom, {
+export const mountAppHeaderDom = (wrapper: HTMLDivElement) => {
+  const $headerWrapper = insertSectionElement(wrapper, {
     attributes: {
       id: 'sw-header-wrapper',
       class: 'sw-header-wrapper',
@@ -41,7 +41,7 @@ export const mountAppHeaderDom = (dom: HTMLDivElement) => {
   });
 
   whatsAppHeaderDomStore.update($headerWrapper);
-  whatsAppContainerDomStore.update(dom);
+  whatsAppContainerDomStore.update(wrapper);
 };
 
 export interface PortalDomContainerProps {
