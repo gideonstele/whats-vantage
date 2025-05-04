@@ -1,5 +1,3 @@
-import { dbLogger } from '@debug';
-
 import { onMessageToBackground } from '@services/background-message';
 import { ContactService } from '@services/db';
 
@@ -21,7 +19,7 @@ export const initContactsDbService = () => {
   });
 
   onMessageToBackground('db:contacts:bulk-add', async ({ data: payload }) => {
-    dbLogger.info('db:contacts:bulk-add', payload);
+    console.info('db:contacts:bulk-add', payload);
 
     return await contactService.addContacts(payload);
   });

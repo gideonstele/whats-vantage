@@ -1,5 +1,3 @@
-import { logger } from '@debug';
-
 import { CSSProperties, forwardRef, memo, ReactNode, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -170,7 +168,7 @@ export const ModalResizableMovable = memo(
 
     useIsomorphicLayoutEffect(() => {
       if (boundaryInWindow && movableBoundary) {
-        logger.warn(
+        console.warn(
           '[ModalResizableMovable] `boundaryInWindow = true` and `movableBoundary` cannot be used at the same time. `movableBoundary` will be ignored.',
         );
       }
@@ -178,7 +176,7 @@ export const ModalResizableMovable = memo(
 
     useIsomorphicLayoutEffect(() => {
       if (isPortal && !getPortalElement()) {
-        logger.warn('[ModalResizableMovable] `isPortal = true` but `getPortalElement` returned null.');
+        console.warn('[ModalResizableMovable] `isPortal = true` but `getPortalElement` returned null.');
       }
     }, [getPortalElement, isPortal]);
 

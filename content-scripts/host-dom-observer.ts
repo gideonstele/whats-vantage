@@ -1,7 +1,5 @@
 import { find } from 'lodash-es';
 
-import { logContentScripts as log } from '@debug';
-
 import mitt from '@utils/mitt';
 
 /**
@@ -115,7 +113,7 @@ export class HostDomObserver {
       this.#emit('ui:mounted');
 
       if ($container) {
-        log.debug('ui:holding', $container);
+        console.debug('ui:holding', $container);
 
         this.#emit('ui:change', WhatsAppUIStage.HOLDING);
         this.#emit('ui:holding');
@@ -144,7 +142,7 @@ export class HostDomObserver {
             const $main = $wrapper.querySelector<HTMLDivElement>('._aigs');
 
             if ($main) {
-              log.debug('ui:mounted', $mounted, $wrapper, $main);
+              console.debug('ui:mounted', $mounted, $wrapper, $main);
 
               this.#emit('ui:change', WhatsAppUIStage.READY);
               this.#emit('ui:ready', $main);
@@ -159,7 +157,7 @@ export class HostDomObserver {
           const $main = node.querySelector<HTMLDivElement>('._aigs');
 
           if ($main) {
-            log.debug('ui:holding', node, $main);
+            console.debug('ui:holding', node, $main);
 
             this.#emit('ui:change', WhatsAppUIStage.READY);
             this.#emit('ui:ready', $main);
@@ -167,9 +165,9 @@ export class HostDomObserver {
         });
 
         findNodeFromList<HTMLDivElement>(mutation.addedNodes, isMainNode, (node) => {
-          log.log('main node, ui:ready', node);
+          console.log('main node, ui:ready', node);
 
-          log.debug('ui:ready', $main);
+          console.debug('ui:ready', $main);
           this.#emit('ui:change', WhatsAppUIStage.READY);
           this.#emit('ui:ready', node);
         });

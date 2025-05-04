@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { cloneDeep, isNil } from 'lodash-es';
-import { PublicPath } from 'wxt/browser';
-
-import { logCommon, logger } from '@debug';
+import { Browser, PublicPath } from 'wxt/browser';
 
 import { GetDataType, GetReturnType } from '@webext-core/messaging';
 
@@ -45,7 +43,7 @@ export const createSafeSendMessage = <PMap extends Record<string, any>, TSendMes
         return isNil(response) ? cloneResponse : response;
       }
     } catch (e) {
-      logger.warn('[safe-message] error, message type:', type, 'payload:', data, 'error:', e);
+      console.warn('[safe-message] error, message type:', type, 'payload:', data, 'error:', e);
       return cloneResponse;
     }
   };
@@ -72,7 +70,7 @@ export const createSafeToPathSendMessage = <PMap extends Record<string, any>>(
         }
       }
     } catch (e) {
-      logger.warn('[safe-message:to-path]', type, 'payload:', data, 'error:', e, '\n', path);
+      console.warn('[safe-message:to-path]', type, 'payload:', data, 'error:', e, '\n', path);
       return cloneResponse;
     }
   };
@@ -100,7 +98,7 @@ export const createSafeToTabsSendMessage = <PMap extends Record<string, any>>(
             returns[tab.id] = response || cloneFallbackResponse;
           }
         } catch (e) {
-          logCommon.warn('[safe-message:to-tabs]', type, 'payload:', data, 'error:', e, tab.url);
+          console.warn('[safe-message:to-tabs]', type, 'payload:', data, 'error:', e, tab.url);
         }
       });
     }

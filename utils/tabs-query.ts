@@ -1,4 +1,4 @@
-import { logger } from '@debug';
+import { Browser, browser } from '#imports';
 
 import { BROWSER_PROTOCOL_REG } from '@configs/consts';
 
@@ -10,7 +10,7 @@ export const queryTabsByMultipleUrls = async (urls: string | string[], callback:
     try {
       await callback(tab);
     } catch (e) {
-      logger.error('[sw:utils:tabs-query] callback throw an error', e);
+      console.error('[sw:utils:tabs-query] callback throw an error', e);
     }
   }
 };

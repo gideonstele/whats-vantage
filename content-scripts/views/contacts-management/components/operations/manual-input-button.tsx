@@ -1,5 +1,3 @@
-import { logCommon as log } from '@debug';
-
 import { ClipboardEvent, useState } from 'react';
 
 import { useIsomorphicLayoutEffect, useMemoizedFn } from 'ahooks';
@@ -76,7 +74,7 @@ export const ManualInputButton = () => {
       setIsModalOpen(false);
       form.resetFields();
     } catch (error) {
-      log.error(error);
+      console.error(error);
     }
   });
 

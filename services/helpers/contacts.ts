@@ -1,7 +1,5 @@
 import { isNil } from 'lodash-es';
 
-import { logCommon as log } from '@debug';
-
 import {
   AvailableGroupModel,
   BusinessProfileModel,
@@ -28,7 +26,7 @@ export function filterAvailableUserContacts(contacts: ContactModel[]) {
 
       return isAvailable;
     } catch (e) {
-      log.error('[sw:wpp:utils:contacts] filterAvailableUserContacts error', e);
+      console.error('[sw:wpp:utils:contacts] filterAvailableUserContacts error', e);
       return false;
     }
   });
@@ -132,12 +130,12 @@ export const formatWithProfilePictureUrl = async (contacts: ContactModel[]): Pro
     const id = contact.id._serialized;
 
     try {
-      // log.debug('[sw:wpp:utils:contacts] formatWithProfilePictureUrl::getProfilePictureUrl', id);
+      // console.debug('[sw:wpp:utils:contacts] formatWithProfilePictureUrl::getProfilePictureUrl', id);
       const url = await wpp.contact.getProfilePictureUrl(id);
       formattedContacts.push(formatContact(contact, url));
     } catch (_e) {
       formattedContacts.push(formatContact(contact));
-      // log.error('[sw:wpp:utils:contacts] formatWithProfilePictureUrl::getProfilePictureUrl error', e);
+      // console.error('[sw:wpp:utils:contacts] formatWithProfilePictureUrl::getProfilePictureUrl error', e);
     }
   }
 

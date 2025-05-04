@@ -1,5 +1,3 @@
-import { wppLog as log } from '@debug';
-
 import { filterAvailableUserContacts, formatWithProfilePictureUrl } from '../helpers/contacts';
 import { onMessageToWppInjected, sendMessageToWppContentScripts } from '../injected-messager';
 
@@ -20,7 +18,7 @@ export const initContacts = () => {
             message: '获取联系人失败',
           };
     } catch (error) {
-      log.error('获取联系人失败', error);
+      console.error('获取联系人失败', error);
 
       return {
         success: false,
@@ -36,7 +34,7 @@ export const initContacts = () => {
       if (success && data) {
         sendMessageToWppContentScripts('content-scripts:contacts:push-contacts', data);
       } else {
-        log.error('主动获取联系人失败', message);
+        console.error('主动获取联系人失败', message);
       }
     }, 1000);
   };

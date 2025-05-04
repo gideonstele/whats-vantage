@@ -1,7 +1,5 @@
 import { createIntegratedUi, defineContentScript, injectScript, IntegratedContentScriptUi } from '#imports';
 
-import { logContentScripts as debugConsole } from '@debug';
-
 import { WHATS_APP_WEB_URL_PATTERN } from '@configs/consts';
 import { mountApp } from '@content-scripts';
 import { mountAppHeaderDom } from '@content-scripts/dom/external';
@@ -41,7 +39,7 @@ export default defineContentScript({
     let ui: IntegratedContentScriptUi<() => void>;
 
     observer.addListener('ui:ready', (element) => {
-      debugConsole.log('on ui:ready', element);
+      console.log('on ui:ready', element);
 
       mountAppHeaderDom(element);
 
@@ -56,7 +54,7 @@ export default defineContentScript({
     });
 
     observer.addListener('ui:unready', () => {
-      debugConsole.log('on ui:unready');
+      console.log('on ui:unready');
       ui?.remove();
     });
 

@@ -111,6 +111,9 @@ importers:
       '@types/chrome':
         specifier: ^0.0.318
         version: 0.0.318
+      '@types/debug':
+        specifier: ^4.1.12
+        version: 4.1.12
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12
@@ -135,6 +138,9 @@ importers:
       chalk:
         specifier: ^5.4.1
         version: 5.4.1
+      debug:
+        specifier: ^4.4.0
+        version: 4.4.0
       dotenv:
         specifier: ^16.5.0
         version: 16.5.0
@@ -183,12 +189,6 @@ importers:
       lint-staged:
         specifier: ^15.5.1
         version: 15.5.1
-      loglevel:
-        specifier: ^1.9.2
-        version: 1.9.2
-      loglevel-plugin-prefix:
-        specifier: ^0.8.4
-        version: 0.8.4
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -1215,6 +1215,9 @@ packages:
   '@types/chrome@0.0.318':
     resolution: {integrity: sha512-rrtyYQ1t+g7EyG0FejE+UXQBjSGUHGh0RIdXwUT/laPo9T724NOIgXA94ns6ewmNauwijYa5ck3+dBxWnHcynQ==}
 
+  '@types/debug@4.1.12':
+    resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
+
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
 
@@ -1238,6 +1241,9 @@ packages:
 
   '@types/minimatch@3.0.5':
     resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
+
+  '@types/ms@2.1.0':
+    resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
   '@types/mustache@4.2.5':
     resolution: {integrity: sha512-PLwiVvTBg59tGFL/8VpcGvqOu3L4OuveNvPi0EYbWchRdEVP++yRUXJPFl+CApKEq13017/4Nf7aQ5lTtHUNsA==}
@@ -2957,13 +2963,6 @@ packages:
   log-update@6.1.0:
     resolution: {integrity: sha512-9ie8ItPR6tjY5uYJh8K/Zrv/RMZ5VOlOWvtZdEHYSTFKZfIBPQa9tOAEeAWhd+AnIneLJ22w5fjOYtoutpWq5w==}
     engines: {node: '>=18'}
-
-  loglevel-plugin-prefix@0.8.4:
-    resolution: {integrity: sha512-WpG9CcFAOjz/FtNht+QJeGpvVl/cdR6P0z6OcXSkr8wFJOsV2GRj2j10JLfjuA4aYkcKCNIEqRGCyTife9R8/g==}
-
-  loglevel@1.9.2:
-    resolution: {integrity: sha512-HgMmCqIJSAKqo68l0rS2AanEWfkxaZ5wNiEFb5ggm08lDs9Xl2KxBlX3PTcaD2chBM1gXAYf491/M2Rv8Jwayg==}
-    engines: {node: '>= 0.6.0'}
 
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
@@ -5390,6 +5389,10 @@ snapshots:
       '@types/filesystem': 0.0.36
       '@types/har-format': 1.2.16
 
+  '@types/debug@4.1.12':
+    dependencies:
+      '@types/ms': 2.1.0
+
   '@types/estree@1.0.7': {}
 
   '@types/filesystem@0.0.36':
@@ -5409,6 +5412,8 @@ snapshots:
   '@types/lodash@4.17.16': {}
 
   '@types/minimatch@3.0.5': {}
+
+  '@types/ms@2.1.0': {}
 
   '@types/mustache@4.2.5': {}
 
@@ -7335,10 +7340,6 @@ snapshots:
       slice-ansi: 7.1.0
       strip-ansi: 7.1.0
       wrap-ansi: 9.0.0
-
-  loglevel-plugin-prefix@0.8.4: {}
-
-  loglevel@1.9.2: {}
 
   loose-envify@1.4.0:
     dependencies:

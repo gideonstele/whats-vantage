@@ -1,7 +1,5 @@
 import { browser } from '#imports';
 
-import { logCommon as log } from '@debug';
-
 import {
   ProcessedAccountInfo,
   ValidateAccountPayload,
@@ -12,7 +10,7 @@ import {
 import { getContactName, simplifyUserId } from './contacts';
 
 if ('runtime' in browser) {
-  log.error('whatsapp validation:', 'validation is not supported in background / content script.');
+  console.error('whatsapp validation:', 'validation is not supported in background / content script.');
 }
 
 // 处理输入参数为统一格式
@@ -57,7 +55,7 @@ export const validateAccount = async (contact: ValidateAccountPayload): Promise<
    */
 
   const contactByGet = await window.WPP.contact.get(item.id).catch((e) => {
-    log.error('whatsapp validation:', 'error when get contact by id', e);
+    console.error('whatsapp validation:', 'error when get contact by id', e);
     return undefined;
   });
 
@@ -78,7 +76,7 @@ export const validateAccount = async (contact: ValidateAccountPayload): Promise<
    */
 
   const exists = await window.WPP.contact.queryExists(`${item.id}@c.us`).catch((e) => {
-    log.error('whatsapp validation:', 'error when query exists by wid', e);
+    console.error('whatsapp validation:', 'error when query exists by wid', e);
     return null;
   });
 
@@ -109,7 +107,7 @@ export const validateAccounts = async (contacts: ValidateAccountsPayload): Promi
   const processedContacts = processContactsInput(contacts);
   const results = await Promise.all(processedContacts.map(validateAccount));
 
-  log.info('validateAccounts:', results);
+  console.info('validateAccounts:', results);
 
   return results;
 };
