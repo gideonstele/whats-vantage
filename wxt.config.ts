@@ -22,7 +22,7 @@ export default defineConfig({
   manifest: () => {
     const web_accessible_resources = [
       {
-        resources: ['wppconnect__wa.js', 'index-injected.js'],
+        resources: ['wppconnect__wa.js', 'inject.js'],
         matches: [WHATS_APP_WEB_URL_PATTERN],
       },
     ];
@@ -34,7 +34,7 @@ export default defineConfig({
       short_name: 'WVant',
       minimum_chrome_version: '110',
       web_accessible_resources,
-      permissions: ['tabs', 'storage'],
+      permissions: ['tabs', 'storage', 'alarms'],
       host_permissions: ['https://ui-avatars.com/*', WHATS_APP_WEB_URL_PATTERN],
     };
   },
@@ -48,23 +48,21 @@ export default defineConfig({
     ],
   },
   alias: {
-    '@assets': './assets',
-    '@views': './views',
-    '@common': './common',
     '@api': './api',
+    '@assets': './assets',
+    '@background': './background',
+    '@configs': './configs',
+    '@common': './common',
+    '@components': './components',
+    '@content-scripts': './content-scripts',
+    '@debug': './debug',
+    '@hooks': './hooks',
     '@utils': './utils',
     '@styles': './styles',
-    '@components': './components',
-    '@background': './background',
-    '@hooks': './hooks',
+    '@services': './services',
+    types: './types',
   },
-  imports: {
-    eslintrc: {
-      enabled: 9,
-    },
-    dirs: [],
-    presets: [],
-  },
+  imports: false,
   vite(env) {
     const cfg: WxtViteConfig = {
       plugins: [
@@ -101,7 +99,12 @@ export default defineConfig({
 
     cfg.optimizeDeps ??= {
       include: ['@webext-core/messaging'],
-      entries: ['./entrypoints/*.ts', './entrypoints/background/index.ts', './entrypoints/*/index.html'],
+      entries: [
+        './entrypoints/*.ts',
+        './entrypoints/background/index.ts',
+        './entrypoints/inject.ts',
+        './entrypoints/*/index.html',
+      ],
     };
     cfg.optimizeDeps.force = true;
 
