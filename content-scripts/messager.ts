@@ -1,4 +1,4 @@
-import { sendMessageToBackground } from '@services/background-message';
+import { sendMessageToBackground } from '@services/background-messager';
 import { onMessageToWppContentScripts } from '@services/injected-messager';
 
 import { wppQueryClient } from './query/client';

@@ -4,6 +4,7 @@ import { IntegratedMenuLayout } from './components/layout-integrated-menu';
 import { ModalsControllerProvider } from './contexts/modal-controller-context';
 import { AccountsMenu } from './modules/contacts/menu-index';
 import { configModals } from './modules/modals';
+import { SettingsMenu } from './modules/settings/menu-index';
 
 export const ContentScriptsApp = () => {
   return (
@@ -11,6 +12,7 @@ export const ContentScriptsApp = () => {
       <IntegratedMenuLayout>
         <MenubarLayout>
           <AccountsMenu />
+          <SettingsMenu />
         </MenubarLayout>
       </IntegratedMenuLayout>
     </ModalsControllerProvider>

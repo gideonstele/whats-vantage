@@ -41,7 +41,7 @@
     "pnpm-lock.yaml": true
   },
   "i18n-ally.localesPaths": [
-    "public/locales",
+    "locales",
   ],
-  "i18n-ally.keystyle": "nested"
+  "i18n-ally.keystyle": "nested",
 }
