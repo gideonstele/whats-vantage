@@ -1,3 +1,5 @@
+import { i18n } from '#i18n';
+
 import { MenubarItem } from '@components/menubar';
 
 import { useModalController } from '../../../contexts/modal-controller-context';
@@ -9,8 +11,8 @@ export const ContactsMenuItem = () => {
   return (
     <MenubarItem
       type="leaf"
-      title="联系人管理"
-      id="sw-assistant.menu-item.contacts-management"
+      title={i18n.t('MODULES.CONTACTS.MENUS.MANAGEMENT')}
+      id="wvt.menu-item.contacts-management"
       onClick={open}
     />
   );

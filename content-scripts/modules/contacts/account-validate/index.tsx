@@ -1,3 +1,5 @@
+import { i18n } from '#i18n';
+
 import { Modal } from 'antd';
 
 import { ClosableModalDefaultProps } from '../../../contexts/modal-controller-context';
@@ -11,7 +13,7 @@ export const AccountValidateModal = ({ isOpen, onClose }: ClosableModalDefaultPr
         open={isOpen}
         maskClosable={false}
         onCancel={onClose}
-        title="账号验证"
+        title={i18n.t('MODULES.CONTACTS.MENUS.ACCOUNT_VALIDATE')}
         footer={null}
       >
         <AccountValidateView />

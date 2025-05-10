@@ -1,3 +1,5 @@
+import { i18n } from '#i18n';
+
 import { useState } from 'react';
 
 import { useMemoizedFn } from 'ahooks';
@@ -25,9 +27,9 @@ export const HeaderOperations = () => {
 
     if (success && data) {
       addContacts(data);
-      messageApi.success(message || '获取联系人成功');
+      messageApi.success(message || i18n.t('MODULES.CONTACTS.VIEWS.MANAGEMENT.MESSAGES.FETCH_CONTACTS_SUCCESS'));
     } else {
-      messageApi.error(message || '获取联系人失败');
+      messageApi.error(message || i18n.t('MODULES.CONTACTS.VIEWS.MANAGEMENT.MESSAGES.FETCH_CONTACTS_ERROR'));
     }
     setIsFetching(false);
   });
@@ -48,7 +50,7 @@ export const HeaderOperations = () => {
           onClick={fetchContacts}
           loading={isFetching || isAddingContacts}
         >
-          从 WhatsApp 同步联系人
+          {i18n.t('MODULES.CONTACTS.VIEWS.MANAGEMENT.HEADER_OPERATIONS.FETCH_CONTACTS')}
         </Button>
       </Flex>
       <Flex

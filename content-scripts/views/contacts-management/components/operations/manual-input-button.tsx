@@ -1,3 +1,5 @@
+import { i18n } from '#i18n';
+
 import { ClipboardEvent, useState } from 'react';
 
 import { useIsomorphicLayoutEffect, useMemoizedFn } from 'ahooks';
@@ -27,7 +29,7 @@ export const ManualInputButton = () => {
   useIsomorphicLayoutEffect(() => {
     if (isAdding || isValidating) {
       messageApi.open({
-        content: '正在验证中...',
+        content: i18n.t('ACTIONS.IS_VALIDATING'),
         key: 'manual-input-button-loading',
       });
     } else {
@@ -46,7 +48,7 @@ export const ManualInputButton = () => {
       const valueContacts = values.contacts.filter(Boolean);
 
       if (valueContacts.length === 0) {
-        messageApi.error('请输入联系人');
+        messageApi.error(i18n.t('MODULES.CONTACTS.VIEWS.MANAGEMENT.HEADER_OPERATIONS.MANUAL_INPUT_TIP'));
         return;
       }
 
@@ -66,9 +68,14 @@ export const ManualInputButton = () => {
         });
       if (contacts) {
         addContacts(contacts);
-        messageApi.success(`添加成功, 输入${values.contacts.length} 项，验证有效${contacts.length} 项`);
+        messageApi.success(
+          i18n.t('MODULES.CONTACTS.VIEWS.MANAGEMENT.HEADER_OPERATIONS.MANUAL_INPUT_SUCCESS', [
+            values.contacts.length,
+            contacts.length,
+          ]),
+        );
       } else {
-        messageApi.error('添加失败，输入项均为无效的联系人');
+        messageApi.error(i18n.t('MODULES.CONTACTS.VIEWS.MANAGEMENT.HEADER_OPERATIONS.MANUAL_INPUT_ERROR'));
       }
 
       setIsModalOpen(false);
@@ -104,7 +111,7 @@ export const ManualInputButton = () => {
         open={isModalOpen}
         onCancel={handleCancel}
         onOk={handleOk}
-        title="手工录入"
+        title={i18n.t('MODULES.CONTACTS.VIEWS.MANAGEMENT.HEADER_OPERATIONS.MANUAL_INPUT')}
       >
         <Form<ManualInputFormValues>
           form={form}
@@ -153,7 +160,7 @@ export const ManualInputButton = () => {
                     icon={<PlusIcon />}
                     onClick={() => add('')}
                   >
-                    增加
+                    {i18n.t('ACTIONS.ADD')}
                   </Button>
                 </Flex>
               </Flex>
@@ -167,7 +174,7 @@ export const ManualInputButton = () => {
         icon={<TextCursorInputIcon />}
         onClick={showModal}
       >
-        手工录入
+        {i18n.t('MODULES.CONTACTS.VIEWS.MANAGEMENT.HEADER_OPERATIONS.MANUAL_INPUT')}
       </Button>
     </>
   );

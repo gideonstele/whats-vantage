@@ -3,7 +3,7 @@ import { isNil } from 'lodash-es';
 
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { sendMessageToBackground } from '@services/background-message';
+import { sendMessageToBackground } from '@services/background-messager';
 import { sendMessageToWppInjected } from '@services/injected-messager';
 import { AddContactItem, ContactDbListParams, DbFormattedContactItem, UpdateContactPayload } from 'types/db/contacts';
 import { ValidateAccountsPayload } from 'types/domain/send-message';

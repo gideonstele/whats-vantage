@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
 import { omit } from 'lodash-es';
 
-import { FormattedContact, MessageLogItem } from 'types/domain/contacts';
+import { FormattedContact } from 'types/domain/contacts';
+import { MessageLogItem } from 'types/domain/send-logs';
 
 import { exportExcel } from 'extend-excel';
 

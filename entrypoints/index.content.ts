@@ -3,6 +3,7 @@ import { createIntegratedUi, defineContentScript, injectScript, IntegratedConten
 import { WHATS_APP_WEB_URL_PATTERN } from '@configs/consts';
 import { mountApp } from '@content-scripts';
 import { mountAppHeaderDom } from '@content-scripts/dom/external';
+import { initDailyUsedListener } from '@content-scripts/external-stores/daily-used';
 import { initReadyStateListener } from '@content-scripts/external-stores/ready-state';
 import { initWppContentScriptsMessager } from '@content-scripts/messager';
 
@@ -67,5 +68,7 @@ export default defineContentScript({
     initReadyStateListener();
 
     initWppContentScriptsMessager();
+
+    initDailyUsedListener();
   },
 });

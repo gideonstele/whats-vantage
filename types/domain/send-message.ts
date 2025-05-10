@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormattedContact, ImportedGroupItem } from './contacts';
+import { DailySettings, DailyUsed } from './settings';
 
 export type SendMessageResponse = 'success' | 'error' | 'processing' | 'scheduled';
 
@@ -25,8 +25,8 @@ export interface SendMessageServiceSettings {
   /**
    * TODO
    */
-  settings: any;
-  used: any;
+  settings: DailySettings;
+  used: DailyUsed;
 }
 
 export interface SendMessagePayload {

@@ -1,3 +1,5 @@
+import { i18n } from '#i18n';
+
 import { MenubarItem } from '@components/menubar';
 
 import { useModalController } from '../../../contexts/modal-controller-context';
@@ -9,7 +11,7 @@ export const AccountValidateMenuItem = () => {
   return (
     <MenubarItem
       type="leaf"
-      title="账号验证"
+      title={i18n.t('MODULES.CONTACTS.MENUS.ACCOUNT_VALIDATE')}
       onClick={open}
     ></MenubarItem>
   );

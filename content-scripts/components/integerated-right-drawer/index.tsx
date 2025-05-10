@@ -55,7 +55,7 @@ export const IntegratedRightDrawer = forwardRef<HTMLDivElement, IntegratedRightD
     return (
       <PortalDomContainer
         useDomHooks={useWhatsAppContainerDom}
-        portalKey="sw-assistant.wpp.right-drawer"
+        portalKey="wvt.wpp.right-drawer"
       >
         {isMounted ? (
           <StyledIntegratedRightDrawer
