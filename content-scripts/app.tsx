@@ -6,6 +6,7 @@ import { AutoSendMenu } from './modules/auto-send/menu-index';
 import { AccountsMenu } from './modules/contacts/menu-index';
 import { configModals } from './modules/modals';
 import { SettingsMenu } from './modules/settings/menu-index';
+import { AutoSendStatusModal } from './views/status-modal';
 
 export const ContentScriptsApp = () => {
   return (
@@ -17,6 +18,7 @@ export const ContentScriptsApp = () => {
           <SettingsMenu />
         </MenubarLayout>
       </IntegratedMenuLayout>
+      <AutoSendStatusModal />
     </ModalsControllerProvider>
   );
 };

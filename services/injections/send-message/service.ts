@@ -312,7 +312,7 @@ export class SendMessageService {
     }
 
     // 计算延迟的毫秒数
-    const delayMs = scheduledTime.diff(now);
+    const delayMs = scheduledTime.diff(now, 'ms');
 
     // 安排定时任务
     if (this.scheduledTaskTimer) {

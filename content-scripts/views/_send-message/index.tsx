@@ -1,17 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dayjs } from 'dayjs';
 import { trim } from 'lodash-es';
 
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 
 import { useMemoizedFn } from 'ahooks';
-import { Button, Flex, Form, Radio, Select, TimePicker, Typography, Upload, UploadFile } from 'antd';
-import { UploadChangeParam } from 'antd/es/upload';
-import { UploadCloudIcon } from 'lucide-react';
+import { Flex, Form, Radio, TimePicker, Typography, UploadFile } from 'antd';
 
-import { TemplateTextarea } from '@components/template-textarea';
-
-import { useAttachmentPerTimeLimit } from '../../external-stores/daily-used';
+import { SelectMessageTemplate } from './components/select-message-template';
+import { TemplateContent } from './components/template-content';
+import { UploadAttachment } from './components/upload-attachment';
 
 export interface SendMessageValues {
   templateId?: number;
@@ -34,16 +31,29 @@ const sendTimeOptions = [
   { label: '立即发送', value: 'immediately' },
   { label: '定时发送', value: 'schedule' },
 ];
-
+/**
+ * Send Message Form View Fragment
+ */
 export const SendMessageView = forwardRef<SendMessageRef, SendMessageViewProps>(({ initialValues }, ref) => {
   const [form] = Form.useForm<SendMessageValues>();
 
   const attachments = useRef<File[]>([]);
-  const setAttachments = useMemoizedFn((info: UploadChangeParam<UploadFile<any>>) => {
-    attachments.current = info.fileList.map((file) => file.originFileObj as File);
+  const setAttachments = useMemoizedFn((fileList: UploadFile[]) => {
+    attachments.current = fileList.map((file) => file.originFileObj as File);
   });
 
-  const attachmentPerTimeLimit = useAttachmentPerTimeLimit();
+  const handleTemplateChange = useMemoizedFn((templateContent: string) => {
+    if (templateContent) {
+      form.setFieldValue('content', templateContent);
+      form.setFields([{ name: 'content', errors: [] }]);
+    }
+  });
+
+  const handleContentChange = useMemoizedFn((value?: string) => {
+    if (value) {
+      form.setFieldValue('templateId', undefined);
+    }
+  });
 
   const sendTimeType = Form.useWatch('sendTimeType', form);
   const [shouldShowSendTime, setShouldShowSendTime] = useState(false);
@@ -111,7 +121,10 @@ export const SendMessageView = forwardRef<SendMessageRef, SendMessageViewProps>(
             name="templateId"
             noStyle
           >
-            <Select style={{ flex: 1 }}></Select>
+            <SelectMessageTemplate
+              style={{ flex: 1 }}
+              onTemplateChange={handleTemplateChange}
+            />
           </Form.Item>
         </Flex>
       </Form.Item>
@@ -122,10 +135,7 @@ export const SendMessageView = forwardRef<SendMessageRef, SendMessageViewProps>(
           dependencies={['templateId']}
           rules={[{ required: true, message: '群发内容不能为空' }]}
         >
-          <TemplateTextarea
-            options={[]}
-            isLoading={false}
-          />
+          <TemplateContent onChange={handleContentChange} />
         </Form.Item>
         <Typography.Paragraph type="secondary">
           消息中的 {'{{ xxx }}'} 将自动替换，如：{'{{name}}'},你好，自动替换为：姓名，你好。
@@ -134,18 +144,7 @@ export const SendMessageView = forwardRef<SendMessageRef, SendMessageViewProps>(
         </Typography.Paragraph>
       </Form.Item>
       <Form.Item label="附件">
-        <Upload
-          accept="image/*,video/*,audio/*,application/pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt"
-          multiple
-          maxCount={attachmentPerTimeLimit}
-          onChange={setAttachments}
-          beforeUpload={() => {
-            return false;
-          }}
-          listType="picture"
-        >
-          <Button icon={<UploadCloudIcon />}>上传附件</Button>
-        </Upload>
+        <UploadAttachment onChange={setAttachments} />
       </Form.Item>
       <Form.Item label="发送时间">
         <Form.Item

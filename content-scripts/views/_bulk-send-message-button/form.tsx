@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 
 import { useMemoizedFn } from 'ahooks';
 
@@ -13,50 +13,62 @@ import { SendMessageRef, SendMessageView } from '../_send-message';
 
 interface BulkSendMessageFormProps {
   contacts: FormattedContact[];
+  onPendingStateChange?: (isPending: boolean) => void;
 }
 
 export interface BulkSendMessageFormRef {
-  submit: () => Promise<void>;
+  submit: () => Promise<boolean>;
 }
 
-export const BulkSendMessageForm = forwardRef<BulkSendMessageFormRef, BulkSendMessageFormProps>(({ contacts }, ref) => {
-  const messageApi = useMessage();
-  const sendMessagesFormRef = useRef<SendMessageRef>(null);
+export const BulkSendMessageForm = forwardRef<BulkSendMessageFormRef, BulkSendMessageFormProps>(
+  ({ contacts, onPendingStateChange }, ref) => {
+    const messageApi = useMessage();
+    const sendMessagesFormRef = useRef<SendMessageRef>(null);
 
-  const handleSendMessage = useMemoizedFn(async () => {
-    const formValue = sendMessagesFormRef.current?.submit();
+    const handleSendMessage = useMemoizedFn(async () => {
+      const formValue = sendMessagesFormRef.current?.submit();
 
-    if (formValue && contacts) {
-      const settings = await getAllSettings();
-      const used = await getDailyUsed();
+      if (formValue && contacts) {
+        const settings = await getAllSettings();
+        const used = await getDailyUsed();
 
-      const result = await sendMessageToWppInjected('injected:send-message', {
-        content: formValue.content,
-        contacts,
-        files: formValue.attachments,
-        sendTimeType: formValue.sendTimeType,
-        sendTime: formValue.sendTime?.format('HH:mm'),
-        settings: {
-          settings,
-          used,
-        },
-      });
+        onPendingStateChange?.(true);
 
-      if (result === 'processing') {
-        messageApi.info('任务已创建');
-      } else if (result === 'error') {
+        const result = await sendMessageToWppInjected('injected:send-message', {
+          content: formValue.content,
+          contacts,
+          files: formValue.attachments,
+          sendTimeType: formValue.sendTimeType,
+          sendTime: formValue.sendTime?.format('HH:mm'),
+          settings: {
+            settings,
+            used,
+          },
+        });
+
+        onPendingStateChange?.(false);
+
+        if (result === 'processing') {
+          messageApi.info('任务已创建');
+        } else if (result === 'error') {
+          messageApi.error('任务创建失败');
+        }
+
+        return true;
+      } else {
         messageApi.error('任务创建失败');
+        return false;
       }
-    }
-  });
+    });
 
-  useImperativeHandle(ref, () => ({
-    submit: handleSendMessage,
-  }));
+    useImperativeHandle(ref, () => ({
+      submit: handleSendMessage,
+    }));
 
-  return (
-    <ModalBodyViewLayout>
-      <SendMessageView ref={sendMessagesFormRef} />
-    </ModalBodyViewLayout>
-  );
-});
+    return (
+      <ModalBodyViewLayout>
+        <SendMessageView ref={sendMessagesFormRef} />
+      </ModalBodyViewLayout>
+    );
+  },
+);

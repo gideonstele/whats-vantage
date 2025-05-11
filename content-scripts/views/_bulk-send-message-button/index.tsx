@@ -20,16 +20,18 @@ export const BulkSendMessageButton = ({ contacts }: BulkSendMessageButtonProps) 
   const [isPending, setIsPending] = useState(false);
 
   const handleSendMessages = useMemoizedFn(async () => {
-    setIsPending(true);
-    await bulkSendMessageFormRef.current?.submit();
-    setIsPending(false);
-    setIsOpen(false);
+    const result = await bulkSendMessageFormRef.current?.submit();
+    if (result) {
+      setIsOpen(false);
+    }
   });
 
   return (
     <>
       <Button
-        variant="solid"
+        variant="filled"
+        color="primary"
+        disabled={contacts?.length === 0}
         onClick={() => setIsOpen(true)}
       >
         {i18n.t('MODULES.MESSAGES.BULK_SEND')}
@@ -49,6 +51,7 @@ export const BulkSendMessageButton = ({ contacts }: BulkSendMessageButtonProps) 
           <BulkSendMessageForm
             ref={bulkSendMessageFormRef}
             contacts={contacts}
+            onPendingStateChange={setIsPending}
           />
         )}
       </Modal>

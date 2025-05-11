@@ -15,7 +15,7 @@ export interface TemplateTextareaProps {
   isLoading?: boolean;
   options?: VariableOption[];
   value?: string;
-  onChange?: (value?: string) => void;
+  onChange?: (value: string) => void;
   onBlur?: FocusEventHandler<HTMLTextAreaElement>;
   onFocus?: FocusEventHandler<HTMLTextAreaElement>;
 }
