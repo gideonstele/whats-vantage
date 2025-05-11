@@ -2,6 +2,7 @@ import { MenubarLayout } from '@components/menubar';
 
 import { IntegratedMenuLayout } from './components/layout-integrated-menu';
 import { ModalsControllerProvider } from './contexts/modal-controller-context';
+import { AutoSendMenu } from './modules/auto-send/menu-index';
 import { AccountsMenu } from './modules/contacts/menu-index';
 import { configModals } from './modules/modals';
 import { SettingsMenu } from './modules/settings/menu-index';
@@ -12,6 +13,7 @@ export const ContentScriptsApp = () => {
       <IntegratedMenuLayout>
         <MenubarLayout>
           <AccountsMenu />
+          <AutoSendMenu />
           <SettingsMenu />
         </MenubarLayout>
       </IntegratedMenuLayout>

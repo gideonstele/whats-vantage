@@ -105,7 +105,7 @@ export const ManualInputButton = () => {
       <Modal
         zIndex={3300}
         mask
-        destroyOnClose
+        destroyOnHidden
         width={400}
         maskClosable={false}
         open={isModalOpen}

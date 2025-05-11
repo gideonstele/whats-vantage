@@ -1,7 +1,7 @@
 import { defineCustomEventMessaging } from '@webext-core/messaging/page';
 
 import { CommonResponseType } from 'types/common';
-import { AddMessageLogItem } from 'types/db/send-logs';
+import { AddSendLogItem } from 'types/db/send-logs';
 import { FormattedContact, ImportedGroupItem } from 'types/domain/contacts';
 import { FormattedGroup, PushGroupsMessage } from 'types/domain/groups';
 import {
@@ -47,7 +47,7 @@ export interface WppContentScriptsMessage {
   ['content-scripts:update-auth'](state: boolean): void;
   ['content-scripts:send-message:update-all'](detail: ProcessingDetail<SendMessageItem>): void;
   ['content-scripts:send-message:complete'](): void;
-  ['content-scripts:send-message:add-statistics'](data: AddMessageLogItem): void;
+  ['content-scripts:send-message:add-statistics'](data: AddSendLogItem): void;
   ['content-scripts:send-message:scheduled'](data: { scheduledTime: string; contactCount: number }): void;
 
   ['content-scripts:check-invite-link:update'](detail: ProcessingDetail<ProcessedGroupItem>): void;

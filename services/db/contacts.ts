@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import dayjs from 'dayjs';
 import Dexie, { Entity, EntityTable } from 'dexie';
 import { omit } from 'lodash-es';
@@ -7,7 +5,7 @@ import { omit } from 'lodash-es';
 import { fuzzyMatch } from '@utils/fuzzy-search';
 import { SearchByOptions } from 'types/common';
 import { AddContactItem, ContactDbQuerySortBy, DbFormattedContactItem, UpdateContactItem } from 'types/db/contacts';
-import { FormattedContact } from 'types/domain/contacts';
+import { FormattedContact, GroupInfo, WidObject } from 'types/domain/contacts';
 
 const contactsTableName = 'contacts' as const;
 const contactsTableColumnLiteral =
@@ -26,8 +24,8 @@ class ContactModel extends Entity<ContactService> implements DbFormattedContactI
   isManualAdded?: boolean;
   createdAt!: string;
   updatedAt!: string;
-  wid?: any;
-  groups?: any[];
+  wid?: WidObject;
+  groups?: GroupInfo[];
 }
 
 export class ContactService extends Dexie {

@@ -58,6 +58,14 @@ MODULES:
     ATTACHMENT_MAX_SIZE: Maximum size of a single attachment (KB)
     ATTACHMENT_PER_TIME_LIMIT: Limit on the number of attachments sent at a time
     TITLE: Settings
+  CUSTOM_VARIABLES:
+    TITLE: Template Variables
+  AUTO_SEND:
+    TITLE: Auto Message
+    MESSAGE_TEMPLATES:
+      TITLE: Message Templates
 ACTION: {}
 REACTIONS:
   SAVE_SUCCESS: Save Success!
+MODULE:
+  CUSTOM_VARIABLES: {}

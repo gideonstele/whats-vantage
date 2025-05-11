@@ -78,7 +78,7 @@ export default tseslint.config(
         'warn',
         {
           groups: [
-            ['core-js', 'core-js/es', '#imports'],
+            ['core-js', 'core-js/es', '#imports', '#i18n'],
             [
               'lodash|dayjs|dexie|clsx|json-stable-stringify|ajax-hook',
               '^dexie-',
@@ -90,10 +90,10 @@ export default tseslint.config(
             ['debug', '^@debug'],
             ['react|react-dom|react-router-dom|react-router', '^@tanstack', '^react-(?!transition-state)', '^use-'],
             [
-              'antd|lucide-react|ahooks|axios|immer|@emotion',
+              '^(antd|lucide-react|ahooks|axios|immer|@emotion)',
               'react-transition-state',
               'radix-ui',
-              '@radix-ui',
+              '^(@radix-ui\\/)',
               '^@webext-core\\/',
               '^@ant-design\\/',
             ],
@@ -121,7 +121,7 @@ export default tseslint.config(
     },
     settings: {
       react: { version: '19.1.0' },
-      'import-x/core-modules': ['#imports'],
+      'import-x/core-modules': ['#imports', '#i18n'],
     },
   },
   {

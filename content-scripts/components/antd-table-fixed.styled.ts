@@ -20,6 +20,10 @@ export const TableUglyStyleOverrideWrapper = styled.section`
     align-items: center;
     vertical-align: middle;
   }
+  .ant-table-wrapper .ant-table-tbody td.ant-table-cell {
+    vertical-align: middle;
+  }
+
   .ant-table-wrapper .ant-table-thead th.ant-table-cell {
     text-align: center;
     vertical-align: middle;

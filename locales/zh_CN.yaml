@@ -49,5 +49,11 @@ MODULES:
     SEND_MESSGAE_INTERVAL_DETAIL: 批量发送或加群时，会在此范围内随机选择一个值延迟操作
     SEND_MESSGAE_INTERVAL_TOOLTIPS: 在批量发消息或加群时，为模仿真人操作，避免被封号，需要在两次操作之间间隔一个随机时间
     TITLE: 设置
+  CUSTOM_VARIABLES:
+    TITLE: 模板变量
+  AUTO_SEND:
+    TITLE: 自动化消息
+    MESSAGE_TEMPLATES:
+      TITLE: 消息模板
 REACTIONS:
   SAVE_SUCCESS: 保存成功

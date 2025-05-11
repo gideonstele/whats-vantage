@@ -1,6 +1,6 @@
 import { FormattedContact } from './contacts';
 
-export interface MessageLogItem {
+export interface SendLogItem {
   id: number;
   contact: FormattedContact;
   message: string;
