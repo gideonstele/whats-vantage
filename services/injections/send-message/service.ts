@@ -133,12 +133,12 @@ export class SendMessageService {
       };
       const result = await this.validateSendMessage();
       if (!result) {
-        return;
+        return false;
       }
-      this.notifyUpdate();
       if (this.isProcessing) {
         this.processCurrentItem();
       }
+      this.notifyUpdate();
     } else {
       // 没有剩余项，任务完成
       this.isProcessing = false;
@@ -203,25 +203,7 @@ export class SendMessageService {
    * @returns 是否通过验证
    */
   async validateSendMessage(): Promise<boolean> {
-    const { settings, used } = this.settings || {
-      settings: {
-        dailySendMaxCount: 500,
-        dailyJoinGroupMaxCount: 100,
-        attachmentMaxSize: 4096,
-        attachmentPerTimeLimit: 5,
-        sendMessageInterval: [5000, 50000],
-      },
-      used: {
-        sendCount: {
-          successed: 0,
-          failed: 0,
-        },
-        joinGroupCount: {
-          successed: 0,
-          failed: 0,
-        },
-      },
-    };
+    const { settings, used } = this.settings!;
 
     const sendCount = used.dailySentCount || 0;
 
@@ -232,6 +214,8 @@ export class SendMessageService {
         status: 'failed',
         errorReason: '发送次数超过每日上限',
       }));
+      this.isProcessing = false;
+      this.notifyUpdate();
       this.reset();
       return false;
     }
@@ -289,7 +273,13 @@ export class SendMessageService {
     }
 
     // 立即开始发送
-    this.setCurrentItem();
+    const result = await this.setCurrentItem();
+    if (result === false) {
+      return 'error';
+    }
+    // this.messageSender('content-scripts:send-message:immediate', {
+    //   contactCount: contacts.length,
+    // });
     return 'processing';
   }
 
@@ -345,6 +335,8 @@ export class SendMessageService {
     if (this.currentTaskTimer) {
       clearTimeout(this.currentTaskTimer);
     }
+
+    console.log('send-message-service:processCurrentItem', delay, this.current);
 
     this.currentTaskTimer = setTimeout(async () => {
       if (!this.current?.contact.id) {

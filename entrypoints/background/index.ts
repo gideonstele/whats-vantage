@@ -21,6 +21,7 @@ export default defineBackground(() => {
   });
 
   onMessageToBackground('settings:all:get', async () => {
-    return await getAllSettings();
+    const allSettings = await getAllSettings();
+    return allSettings;
   });
 });

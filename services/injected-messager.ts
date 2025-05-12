@@ -49,7 +49,7 @@ export interface WppContentScriptsMessage {
   ['content-scripts:send-message:complete'](): void;
   ['content-scripts:send-message:add-statistics'](data: AddSendLogItem): void;
   ['content-scripts:send-message:scheduled'](data: { scheduledTime: string; contactCount: number }): void;
-
+  ['content-scripts:send-message:immediate'](data: { contactCount: number }): void;
   ['content-scripts:check-invite-link:update'](detail: ProcessingDetail<ProcessedGroupItem>): void;
   ['content-scripts:check-invite-link:complete'](): void;
 

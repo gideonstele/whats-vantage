@@ -73,8 +73,8 @@ export const setAttachmentPerTimeLimit = async (value: number) => {
 };
 
 export const setSendMessageInterval = async (value: [number, number]) => {
-  const start = validateNumber(value[0], 0, StorageSendMessageInterval.fallback[0]);
-  const end = validateNumber(value[1], 0, StorageSendMessageInterval.fallback[1]);
+  const start = validateNumber(value[0], 60, StorageSendMessageInterval.fallback[0]);
+  const end = validateNumber(value[1], 60, StorageSendMessageInterval.fallback[1]);
 
   if (start > end) {
     return;
