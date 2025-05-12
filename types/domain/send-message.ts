@@ -1,7 +1,11 @@
 import { FormattedContact, ImportedGroupItem } from './contacts';
 import { DailySettings, DailyUsed } from './settings';
 
-export type SendMessageResponse = 'success' | 'error' | 'processing' | 'scheduled';
+export type SendMessageResponseType = 'success' | 'error' | 'processing' | 'scheduled';
+export type SendMessageResponse = {
+  type: SendMessageResponseType;
+  message?: string;
+};
 
 export enum SendMessageState {
   IDLE = 'idle',

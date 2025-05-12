@@ -124,7 +124,7 @@ export class SendMessageService {
   /**
    * 设置当前处理项，从队列中取出下一个待发送项
    */
-  private async setCurrentItem() {
+  private async setCurrentItem(): Promise<{ success: boolean; message?: string }> {
     const item = this.remaining.shift();
     if (item) {
       this.current = {
@@ -132,17 +132,27 @@ export class SendMessageService {
         status: 'processing',
       };
       const result = await this.validateSendMessage();
-      if (!result) {
-        return false;
+      if (!result.success) {
+        this.reset();
+        return {
+          success: false,
+          message: result.message,
+        };
       }
       if (this.isProcessing) {
         this.processCurrentItem();
       }
       this.notifyUpdate();
+      return {
+        success: true,
+      };
     } else {
       // 没有剩余项，任务完成
       this.isProcessing = false;
       this.notifyComplete();
+      return {
+        success: true,
+      };
     }
   }
 
@@ -202,7 +212,7 @@ export class SendMessageService {
    * 验证消息发送是否符合限制条件
    * @returns 是否通过验证
    */
-  async validateSendMessage(): Promise<boolean> {
+  async validateSendMessage() {
     const { settings, used } = this.settings!;
 
     const sendCount = used.dailySentCount || 0;
@@ -214,13 +224,17 @@ export class SendMessageService {
         status: 'failed',
         errorReason: '发送次数超过每日上限',
       }));
-      this.isProcessing = false;
-      this.notifyUpdate();
-      this.reset();
-      return false;
+
+      return {
+        success: false,
+        message: '发送次数超过每日上限',
+      };
     }
 
-    return true;
+    return {
+      success: true,
+      message: '验证通过',
+    };
   }
 
   /**
@@ -268,19 +282,26 @@ export class SendMessageService {
           scheduledTime: delayTime,
           contactCount: contacts.length,
         });
-        return 'scheduled';
+        return {
+          type: 'scheduled',
+        };
       }
     }
 
     // 立即开始发送
     const result = await this.setCurrentItem();
-    if (result === false) {
-      return 'error';
+    if (!result.success) {
+      return {
+        type: 'error',
+        message: result.message,
+      };
     }
     // this.messageSender('content-scripts:send-message:immediate', {
     //   contactCount: contacts.length,
     // });
-    return 'processing';
+    return {
+      type: 'processing',
+    };
   }
 
   /**

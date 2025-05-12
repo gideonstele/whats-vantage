@@ -48,10 +48,10 @@ export const BulkSendMessageForm = forwardRef<BulkSendMessageFormRef, BulkSendMe
 
         onPendingStateChange?.(false);
 
-        if (result === 'processing') {
+        if (result.type === 'processing' || result.type === 'scheduled') {
           messageApi.info('任务已创建');
-        } else if (result === 'error') {
-          messageApi.error('任务创建失败, 发送次数超过每日上限');
+        } else if (result.type === 'error') {
+          messageApi.error(result.message || '任务创建失败');
         }
 
         return true;
