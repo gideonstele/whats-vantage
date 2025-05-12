@@ -25,7 +25,8 @@ export const StatusContent = memo(({ state }: StatusContentProps) => {
     return (
       <StyledAutoSendStatusCollapsed>
         <Button
-          type="link"
+          variant="solid"
+          color="primary"
           icon={<ListCollapseIcon />}
           onClick={() => setIsCollapsed(false)}
         ></Button>

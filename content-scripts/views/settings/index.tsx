@@ -23,6 +23,7 @@ export const SettingsView = () => {
   useAsyncEffect(async () => {
     const settings = await sendMessageToBackground('settings:all:get', undefined);
     if (settings) {
+      console.log('settings', settings);
       form.setFieldsValue(settings);
     }
   }, [form]);

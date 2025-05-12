@@ -49,4 +49,16 @@ export const initSendMessageProcessingListener = () => {
       contactCount: data.contactCount,
     });
   });
+
+  onMessageToWppContentScripts('content-scripts:send-message:immediate', ({ data }) => {
+    sendMessageProcessingState.update({
+      isPending: true,
+      remaining: [],
+      current: null,
+      success: [],
+      error: [],
+      scheduledTime: undefined,
+      contactCount: data.contactCount,
+    });
+  });
 };
