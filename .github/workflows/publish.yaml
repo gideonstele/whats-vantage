@@ -1,0 +1,92 @@
+name: Publish
+
+permissions:
+  contents: write
+  id-token: write
+
+env:
+  CI: true
+
+on:
+  workflow_dispatch:
+    inputs:
+      level:
+        description: 'Release level'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+      preid-type:
+        description: 'Release or Pre-release type'
+        required: true
+        default: 'release'
+        type: 'choice'
+        options:
+          - release
+          - prerelease
+          - beta
+          - alpha
+
+jobs:
+  build-and-versioning:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: ./.github/actions/setup-node-pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        shell: bash
+
+      - name: Get Build Mode
+        id: build-mode
+        shell: bash
+        run: |
+          if [[ "${{ github.event.inputs.preid-type }}" == "beta" || "${{ github.event.inputs.preid-type }}" == "alpha" || "${{ github.event.inputs.preid-type }}" == "prerelease" ]]; then
+            echo "mode=development" >> $GITHUB_OUTPUT
+          else
+            echo "mode=production" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update version by increment
+        id: versioning
+        run: |
+          # 配置git以便pnpm可以推送标签
+          git config --global push.followTags true
+
+          # 运行版本更新脚本
+          OUTPUT_VERSION=$(bash ./scripts/versioning.sh "${{ github.event.inputs.level }} ${{ github.event.inputs.preid-type }}")
+
+          # 输出版本信息
+          echo "version=${OUTPUT_VERSION}" >> $GITHUB_OUTPUT
+
+          # 推送更改到远程仓库
+          git push
+
+      - name: Compile JavaScript in ${{ steps.build-mode.outputs.mode }} Mode
+        shell: bash
+        run: |
+          echo "Building in ${{ steps.build-mode.outputs.mode }} mode"
+          pnpm run zip -- --mode=${{ steps.build-mode.outputs.mode }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            .output/*.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: v${{ steps.versioning.outputs.version }}
+          name: v${{ steps.versioning.outputs.version }}
+          body: |
+            **Release Level:** ${{ github.event.inputs.level }}
+            **Release Type:** ${{ github.event.inputs.preid-type }}
+            **Build Mode:** ${{ steps.build-mode.outputs.mode }}
+            **Commit:** ${{ github.sha }}
