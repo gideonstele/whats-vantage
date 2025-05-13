@@ -20,7 +20,6 @@ runs:
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v3
-        shell: bash
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -28,7 +27,6 @@ runs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install Node.js
-        shell: bash
         uses: actions/setup-node@v4
         with:
           cache: 'pnpm'
