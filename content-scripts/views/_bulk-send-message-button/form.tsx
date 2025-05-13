@@ -14,6 +14,7 @@ import { SendMessageRef, SendMessageView } from '../_send-message';
 interface BulkSendMessageFormProps {
   contacts: FormattedContact[];
   onPendingStateChange?: (isPending: boolean) => void;
+  onEnableSubmitStateChange?: (isEnable: boolean) => void;
 }
 
 export interface BulkSendMessageFormRef {
@@ -21,7 +22,7 @@ export interface BulkSendMessageFormRef {
 }
 
 export const BulkSendMessageForm = forwardRef<BulkSendMessageFormRef, BulkSendMessageFormProps>(
-  ({ contacts, onPendingStateChange }, ref) => {
+  ({ contacts, onPendingStateChange, onEnableSubmitStateChange }, ref) => {
     const messageApi = useMessage();
     const sendMessagesFormRef = useRef<SendMessageRef>(null);
 
@@ -50,10 +51,11 @@ export const BulkSendMessageForm = forwardRef<BulkSendMessageFormRef, BulkSendMe
 
         if (result.type === 'processing' || result.type === 'scheduled') {
           messageApi.info('任务已创建');
+          return true;
         } else if (result.type === 'error') {
           messageApi.error(result.message || '任务创建失败');
+          return false;
         }
-
         return true;
       } else {
         messageApi.error('任务创建失败');
@@ -67,7 +69,10 @@ export const BulkSendMessageForm = forwardRef<BulkSendMessageFormRef, BulkSendMe
 
     return (
       <ModalBodyViewLayout>
-        <SendMessageView ref={sendMessagesFormRef} />
+        <SendMessageView
+          ref={sendMessagesFormRef}
+          onEnableSubmitStateChange={onEnableSubmitStateChange}
+        />
       </ModalBodyViewLayout>
     );
   },

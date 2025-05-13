@@ -18,6 +18,7 @@ export const BulkSendMessageButton = ({ contacts }: BulkSendMessageButtonProps) 
 
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, setIsPending] = useState(false);
+  const [isEnableSubmit, setIsEnableSubmit] = useState(false);
 
   const handleSendMessages = useMemoizedFn(async () => {
     const result = await bulkSendMessageFormRef.current?.submit();
@@ -43,7 +44,7 @@ export const BulkSendMessageButton = ({ contacts }: BulkSendMessageButtonProps) 
         onOk={handleSendMessages}
         okText={i18n.t('ACTIONS.SEND')}
         cancelText={i18n.t('ACTIONS.CANCEL')}
-        okButtonProps={{ loading: isPending }}
+        okButtonProps={{ loading: isPending, disabled: !isEnableSubmit }}
       >
         {isPending ? (
           <Skeleton active />
@@ -52,6 +53,7 @@ export const BulkSendMessageButton = ({ contacts }: BulkSendMessageButtonProps) 
             ref={bulkSendMessageFormRef}
             contacts={contacts}
             onPendingStateChange={setIsPending}
+            onEnableSubmitStateChange={setIsEnableSubmit}
           />
         )}
       </Modal>
