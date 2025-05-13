@@ -2,7 +2,7 @@
   "name": "whats-vantage",
   "description": "Whats Vantage is a Chrome extension that helps you manage your WhatsApp conversations.",
   "license": "Apache-2.0",
-  "version": "0.0.3",
+  "version": "0.0.4-prerelease.0",
   "type": "module",
   "scripts": {
     "dev": "wxt",
