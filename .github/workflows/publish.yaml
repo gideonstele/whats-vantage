@@ -56,6 +56,12 @@ jobs:
             echo "mode=production" >> $GITHUB_OUTPUT
           fi
 
+      - name: Compile JavaScript in ${{ steps.build-mode.outputs.mode }} Mode
+        shell: bash
+        run: |
+          echo "Building in ${{ steps.build-mode.outputs.mode }} mode"
+          pnpm run zip -- --mode=${{ steps.build-mode.outputs.mode }}
+
       - name: Update version by increment
         id: versioning
         run: |
@@ -66,16 +72,10 @@ jobs:
           OUTPUT_VERSION=$(bash ./scripts/versioning.sh "${{ github.event.inputs.level }} ${{ github.event.inputs.preid-type }}")
 
           # 输出版本信息
-          echo "version=${OUTPUT_VERSION}" >> $GITHUB_OUTPUT
+          echo "Version updated to: $OUTPUT_VERSION"
 
           # 推送更改到远程仓库
           git push
-
-      - name: Compile JavaScript in ${{ steps.build-mode.outputs.mode }} Mode
-        shell: bash
-        run: |
-          echo "Building in ${{ steps.build-mode.outputs.mode }} mode"
-          pnpm run zip -- --mode=${{ steps.build-mode.outputs.mode }}
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
