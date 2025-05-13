@@ -1,21 +1,28 @@
 #!/bin/bash
 
 # Versioning script for GitHub Actions
-# Usage: ./versioning.sh "release-level release-type"
-# Example: ./versioning.sh "patch release" or ./versioning.sh "minor beta"
+# Usage: ./versioning.sh release-level release-type
+# Example: ./versioning.sh patch release or ./versioning.sh minor beta
 
 # 检查参数
 if [[ -z "$1" ]]; then
   echo "Error: No parameters provided."
-  echo "Usage: ./versioning.sh \"release-level release-type\""
-  echo "Example: ./versioning.sh \"patch release\" or ./versioning.sh \"minor beta\""
+  echo "Usage: ./versioning.sh release-level release-type"
+  echo "Example: ./versioning.sh patch release or ./versioning.sh minor beta"
   exit 1
 fi
 
 # 解析参数
-INPUT="$1"
-RELEASE_LEVEL=$(echo $INPUT | awk '{print $1}')
-RELEASE_TYPE=$(echo $INPUT | awk '{print $2}')
+if [[ -n "$2" ]]; then
+  # 如果提供了两个参数
+  RELEASE_LEVEL="$1"
+  RELEASE_TYPE="$2"
+else
+  # 兼容旧格式：一个参数包含两个值
+  INPUT="$1"
+  RELEASE_LEVEL=$(echo $INPUT | awk '{print $1}')
+  RELEASE_TYPE=$(echo $INPUT | awk '{print $2}')
+fi
 
 echo "Using release level: $RELEASE_LEVEL"
 echo "Using release type: $RELEASE_TYPE"
@@ -30,6 +37,17 @@ fi
 if [[ ! "$RELEASE_TYPE" =~ ^(release|prerelease|beta|alpha)$ ]]; then
   echo "Error: Invalid release type. Must be one of: release, prerelease, beta, alpha"
   exit 1
+fi
+
+# 获取当前版本
+CURRENT_VERSION=$(node -p "require('./package.json').version")
+echo "Current version: $CURRENT_VERSION"
+
+# 构建提交消息
+if [[ "$RELEASE_TYPE" == "release" ]]; then
+  COMMIT_MSG="chore: release $RELEASE_LEVEL version"
+else
+  COMMIT_MSG="chore: release $RELEASE_LEVEL-$RELEASE_TYPE version"
 fi
 
 # 根据release type和level确定版本更新命令
