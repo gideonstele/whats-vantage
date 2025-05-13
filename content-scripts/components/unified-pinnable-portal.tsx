@@ -21,7 +21,7 @@ export interface UnifiedPinnablePortalProps {
 
 export const UnifiedPinnablePortal = forwardRef<HTMLDivElement, UnifiedPinnablePortalProps>(
   ({ title, children, modalStorageKey, drawerWidth, isOpen, onClose, defaultSize, initialSize }, ref) => {
-    const [isPin, setIsPin] = useLocalStorageState('sw-assistant.wpp.modal.pin', {
+    const [isPin, setIsPin] = useLocalStorageState('wvt.wpp.modal.pin', {
       defaultValue: true,
     });
 

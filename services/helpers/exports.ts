@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
 import { omit } from 'lodash-es';
 
-import { FormattedContact, MessageLogItem } from 'types/domain/contacts';
+import { FormattedContact } from 'types/domain/contacts';
+import { SendLogItem } from 'types/domain/send-logs';
 
 import { exportExcel } from 'extend-excel';
 
@@ -32,7 +33,7 @@ export function exportContacts(contacts: FormattedContact[]) {
 }
 
 const exportMessageLogHeader: Record<
-  keyof Pick<MessageLogItem, 'createdAt' | 'success' | 'reason' | 'message' | 'attachmentCount' | 'contact'>,
+  keyof Pick<SendLogItem, 'createdAt' | 'success' | 'reason' | 'message' | 'attachmentCount' | 'contact'>,
   string
 > = {
   createdAt: '发送时间',
@@ -43,7 +44,7 @@ const exportMessageLogHeader: Record<
   contact: '联系人',
 };
 
-export function exportMessageLogs(messageLogs: MessageLogItem[]) {
+export function exportMessageLogs(messageLogs: SendLogItem[]) {
   const data = messageLogs.map((messageLog) => {
     return {
       contact: messageLog.contact.name,

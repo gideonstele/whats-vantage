@@ -2,7 +2,7 @@ import { usePaginatedContactsData, useSelectedContacts } from '../../../../compo
 import { ExportContactsButton } from '../../../../components/export-contacts-button';
 import { useQueryContacts } from '../../../../query/contacts';
 
-export const ExportButton = ({ viewRef }: { viewRef: HTMLDivElement | undefined }) => {
+export const ExportButton = ({ viewRef }: { viewRef?: HTMLDivElement | undefined }) => {
   const { data: contacts, isLoading } = useQueryContacts(undefined);
   const { data: paginatedContacts } = usePaginatedContactsData();
   const { selectedContacts } = useSelectedContacts();

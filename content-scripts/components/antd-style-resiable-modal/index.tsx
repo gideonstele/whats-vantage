@@ -66,10 +66,7 @@ export const AntdStyleResizableModal = forwardRef<HTMLDivElement, AntdStyleResiz
     ref,
   ) => {
     const id = useId();
-    const key = useMemo(
-      () => `sw-assistant.content-script.draggable-box-pos.${localStorageKey || id}`,
-      [localStorageKey, id],
-    );
+    const key = useMemo(() => `wvt.content-script.draggable-box-pos.${localStorageKey || id}`, [localStorageKey, id]);
 
     const [isOpen, setIsOpen] = useControllableValue<boolean>(
       {

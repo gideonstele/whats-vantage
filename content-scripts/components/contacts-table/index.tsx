@@ -8,12 +8,13 @@ import { SearchIcon } from 'lucide-react';
 
 import { FormattedContact } from 'types/domain/contacts';
 
+import { TableUglyStyleOverrideWrapper } from '../antd-table-fixed.styled';
+
 import { FilterContactName } from './components/filter-contact-name';
 import { FilterContactPhoneNumber } from './components/filter-contact-phone-number';
 import { ContactTableFilterDropdown } from './components/filter-contact-status';
 import { FilterIcon } from './components/filter-icon';
 import { StatusList } from './components/status';
-import { TableUglyStyleOverrideWrapper } from './components/styled';
 
 export {
   PaginatedContactsProvider,

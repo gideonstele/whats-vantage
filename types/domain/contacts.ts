@@ -53,27 +53,6 @@ export interface FormattedContact {
   groups?: GroupInfo[];
 }
 
-export interface FormattedGroup {
-  /**
-   * use id._serialized as id
-   */
-  id: string;
-  name: string;
-  memberCount?: number;
-  avatar?: string;
-  wid?: WidObject;
-}
-
-export interface MessageLogItem {
-  id: number;
-  contact: FormattedContact;
-  message: string;
-  createdAt: number;
-  attachmentCount?: number;
-  success?: boolean;
-  reason?: string;
-}
-
 export interface ImportedGroupItem {
   id: string;
   name?: string;

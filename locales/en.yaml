@@ -1,3 +1,71 @@
 EXT:
   name: Whats Vantage
-  description: Whats Vantage is a Chrome extension that helps you manage your WhatsApp conversations.
+  description: >-
+    Whats Vantage is a Chrome extension that helps you manage your WhatsApp
+    conversations.
+ACTIONS:
+  BULK_DELETE: Bulk Delete
+  EXPORT: Export
+  EXPORT_SELECTED: Export Selected
+  EXPORT_ALL: Export All
+  IMPORT: Import
+  MANMUAL_INPUT: Manual Input
+  REMOVE_ALL: Remove All
+  REMOVE_SELECTED: Remove Selected
+  IS_VALIDATING: Validating in progress
+  ADD: Add
+  SEND: Send
+  CANCEL: Cancel
+  SAVE: Save
+MODULES:
+  CONTACTS:
+    MENUS:
+      MANAGEMENT: Contacts Management
+      ACCOUNT_VALIDATE: Account Validate
+      INDEX: Contacts
+    VIEWS:
+      VALIDATE:
+        INPUT_CONTACT_TIP: Please input the contact you want to validate
+      MANAGEMENT:
+        HEADER_OPERATIONS:
+          FETCH_CONTACTS: Sync Contacts from WhatsApp
+          MANUAL_INPUT: Manual Input
+          IMPORT_CONTACTS: Import Contacts
+          DOWNLOAD_TEMPLATE: Download Template
+          MANUAL_INPUT_TIP: Please input the contact
+          MANUAL_INPUT_SUCCESS: Successfully added $1 items, validated $2 items
+          MANUAL_INPUT_ERROR: Failed to add, all input items are invalid contacts
+          MANMUAL_INPUT_INPUT_ITEM_PLACEHOLDER: >-
+            Support pasting multiple accounts at once, separated by Enter or
+            Comma
+        MESSAGES:
+          FETCH_CONTACTS_SUCCESS: Fetch Contacts Success
+          FETCH_CONTACTS_ERROR: Fetch Contacts Error
+  MESSAGES:
+    BULK_SEND: Bulk Send
+  SETTINGS:
+    DAILY_SEND_MAX_COUNT: Maximum number of daily group messages
+    DAILY_JOIN_GROUP_MAX_COUNT: Maximum number of group joins per day
+    DAILY_SEND_MAX_COUNT_SUFFIX: Times/Day
+    SEND_MESSAGE_INTERVAL: Time interval random range (seconds)
+    SEND_MESSGAE_INTERVAL_TOOLTIPS: >-
+      When sending batch messages or joining a group, in order to imitate
+      real-life operations and avoid being blocked, a random time interval is
+      required between two operations.
+    SEND_MESSGAE_INTERVAL_DETAIL: >-
+      When sending in batches or adding a group, a value will be randomly
+      selected within this range to delay the operation.
+    ATTACHMENT_MAX_SIZE: Maximum size of a single attachment (KB)
+    ATTACHMENT_PER_TIME_LIMIT: Limit on the number of attachments sent at a time
+    TITLE: Settings
+  CUSTOM_VARIABLES:
+    TITLE: Template Variables
+  AUTO_SEND:
+    TITLE: Auto Message
+    MESSAGE_TEMPLATES:
+      TITLE: Message Templates
+ACTION: {}
+REACTIONS:
+  SAVE_SUCCESS: Save Success!
+MODULE:
+  CUSTOM_VARIABLES: {}

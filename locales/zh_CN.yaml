@@ -1,0 +1,59 @@
+EXT:
+  name: 答万
+  description: 答万是一款帮助你管理你的WhatsApp对话的Chrome插件。
+ACTIONS:
+  BULK_DELETE: 批量删除
+  EXPORT: 导出
+  EXPORT_SELECTED: 导出选中
+  EXPORT_ALL: 导出全部
+  IMPORT: 导入
+  MANMUAL_INPUT: 手动输入
+  REMOVE_ALL: 全部删除
+  REMOVE_SELECTED: 删除选中的
+  IS_VALIDATING: 正在验证中
+  ADD: 添加
+  SEND: 发送
+  CANCEL: 取消
+  SAVE: 保存
+MODULES:
+  CONTACTS:
+    MENUS:
+      INDEX: 联系人
+      MANAGEMENT: 联系人管理
+      ACCOUNT_VALIDATE: 账号验证
+    VIEWS:
+      VALIDATE:
+        INPUT_CONTACT_TIP: 请输入你要验证的联系人
+      MANAGEMENT:
+        HEADER_OPERATIONS:
+          FETCH_CONTACTS: 从 WhatsApp 同步联系人
+          MANUAL_INPUT: 手动输入
+          IMPORT_CONTACTS: 导入联系人
+          DOWNLOAD_TEMPLATE: 下载模板
+          MANUAL_INPUT_TIP: 请输入联系人
+          MANUAL_INPUT_SUCCESS: 添加成功, 输入 $1 项，验证有效 $2 项
+          MANUAL_INPUT_ERROR: 添加失败，输入项均为无效的联系人
+          MANMUAL_INPUT_INPUT_ITEM_PLACEHOLDER: 支持一次粘贴多个帐户，通过回车或逗号分割
+        MESSAGES:
+          FETCH_CONTACTS_SUCCESS: 获取联系人成功
+          FETCH_CONTACTS_ERROR: 获取联系人失败
+  MESSAGES:
+    BULK_SEND: 群发消息
+  SETTINGS:
+    DAILY_SEND_MAX_COUNT: 群发每日最多次数
+    DAILY_JOIN_GROUP_MAX_COUNT: 每日最多加群次数
+    DAILY_SEND_MAX_COUNT_SUFFIX: 次/天
+    ATTACHMENT_MAX_SIZE: 单个附件最大尺寸（KB）
+    ATTACHMENT_PER_TIME_LIMIT: 单次附件发送数量限制
+    SEND_MESSAGE_INTERVAL: 时间间隔随机范围（秒）
+    SEND_MESSGAE_INTERVAL_DETAIL: 批量发送或加群时，会在此范围内随机选择一个值延迟操作
+    SEND_MESSGAE_INTERVAL_TOOLTIPS: 在批量发消息或加群时，为模仿真人操作，避免被封号，需要在两次操作之间间隔一个随机时间
+    TITLE: 设置
+  CUSTOM_VARIABLES:
+    TITLE: 模板变量
+  AUTO_SEND:
+    TITLE: 自动化消息
+    MESSAGE_TEMPLATES:
+      TITLE: 消息模板
+REACTIONS:
+  SAVE_SUCCESS: 保存成功

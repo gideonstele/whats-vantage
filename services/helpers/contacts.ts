@@ -5,10 +5,10 @@ import {
   BusinessProfileModel,
   ContactModel,
   FormattedContact,
-  FormattedGroup,
   GroupMemberModel,
   GroupModel,
 } from 'types/domain/contacts';
+import { FormattedGroup } from 'types/domain/groups';
 
 export function filterAvailableUserContacts(contacts: ContactModel[]) {
   return contacts.filter((contact) => {

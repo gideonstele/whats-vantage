@@ -28,7 +28,7 @@ export default defineConfig({
     ];
 
     return {
-      default_locale: 'en',
+      default_locale: 'zh_CN',
       name: '__MSG_EXT_name__',
       description: '__MSG_EXT_description__',
       short_name: 'WVant',

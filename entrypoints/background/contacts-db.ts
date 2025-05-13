@@ -1,4 +1,4 @@
-import { onMessageToBackground } from '@services/background-message';
+import { onMessageToBackground } from '@services/background-messager';
 import { ContactService } from '@services/db';
 
 export const initContactsDbService = () => {

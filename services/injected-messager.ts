@@ -1,7 +1,9 @@
 import { defineCustomEventMessaging } from '@webext-core/messaging/page';
 
 import { CommonResponseType } from 'types/common';
-import { FormattedContact, FormattedGroup, ImportedGroupItem } from 'types/domain/contacts';
+import { AddSendLogItem } from 'types/db/send-logs';
+import { FormattedContact, ImportedGroupItem } from 'types/domain/contacts';
+import { FormattedGroup, PushGroupsMessage } from 'types/domain/groups';
 import {
   ProcessedGroupItem,
   ProcessingDetail,
@@ -45,8 +47,9 @@ export interface WppContentScriptsMessage {
   ['content-scripts:update-auth'](state: boolean): void;
   ['content-scripts:send-message:update-all'](detail: ProcessingDetail<SendMessageItem>): void;
   ['content-scripts:send-message:complete'](): void;
+  ['content-scripts:send-message:add-statistics'](data: AddSendLogItem): void;
   ['content-scripts:send-message:scheduled'](data: { scheduledTime: string; contactCount: number }): void;
-
+  ['content-scripts:send-message:immediate'](data: { contactCount: number }): void;
   ['content-scripts:check-invite-link:update'](detail: ProcessingDetail<ProcessedGroupItem>): void;
   ['content-scripts:check-invite-link:complete'](): void;
 
@@ -55,14 +58,22 @@ export interface WppContentScriptsMessage {
   ['content-scripts:process-join-group:complete'](): void;
 
   ['content-scripts:contacts:push-contacts'](data: FormattedContact[]): void;
+  ['content-scripts:groups:push-groups'](data: PushGroupsMessage): void;
 }
-
+/**
+ * from content-scripts to injected script
+ */
 export const { onMessage: onMessageToWppInjected, sendMessage: sendMessageToWppInjected } =
   defineCustomEventMessaging<WppInjectedMessage>({
     namespace: 'wvt:injected-messager',
   });
 
+/**
+ * from injected script to content-scripts
+ */
 export const { onMessage: onMessageToWppContentScripts, sendMessage: sendMessageToWppContentScripts } =
   defineCustomEventMessaging<WppContentScriptsMessage>({
     namespace: 'wvt:content-scripts-messager',
   });
+
+export type WppContentScriptsMessageSender = typeof sendMessageToWppContentScripts;

@@ -28,7 +28,7 @@ export function mountApp(uiContainer: HTMLElement) {
     colorPrimaryActive: '#25d366',
     colorPrimaryText: '#008069',
     colorPrimaryTextActive: '#25d366',
-    colorPrimaryTextHover: '#e7fce3',
+    colorPrimaryTextHover: '#008069',
     colorLink: '#008069',
     colorLinkActive: '#25d366',
     colorLinkHover: '#25d366',
