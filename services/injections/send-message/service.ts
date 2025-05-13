@@ -124,7 +124,7 @@ export class SendMessageService {
   /**
    * 设置当前处理项，从队列中取出下一个待发送项
    */
-  private async setCurrentItem(): Promise<{ success: boolean; message?: string }> {
+  private async setCurrentItem(ignoreDelay: boolean = false): Promise<{ success: boolean; message?: string }> {
     const item = this.remaining.shift();
     if (item) {
       this.current = {
@@ -289,7 +289,7 @@ export class SendMessageService {
     }
 
     // 立即开始发送
-    const result = await this.setCurrentItem();
+    const result = await this.setCurrentItem(true);
     if (!result.success) {
       return {
         type: 'error',
@@ -348,16 +348,16 @@ export class SendMessageService {
   /**
    * 处理当前发送项
    */
-  private async processCurrentItem(): Promise<void> {
+  private async processCurrentItem(ignoreDelay = false): Promise<void> {
     // 计算发送延迟时间（随机范围内）
     const [minInterval, maxInterval] = this.settings?.settings.sendMessageInterval || [0, 1];
-    const delay = Math.floor(Math.random() * (maxInterval - minInterval + 1)) + minInterval;
+    const alarmTime = ignoreDelay ? 0 : Math.floor(Math.random() * (maxInterval - minInterval + 1)) + minInterval;
 
     if (this.currentTaskTimer) {
       clearTimeout(this.currentTaskTimer);
     }
 
-    console.log('send-message-service:processCurrentItem', delay, this.current);
+    console.log('send-message-service:processCurrentItem', alarmTime, this.current);
 
     this.currentTaskTimer = setTimeout(async () => {
       if (!this.current?.contact.id) {
@@ -394,7 +394,7 @@ export class SendMessageService {
       } else {
         await this.sendSingleText();
       }
-    }, delay * 1000);
+    }, alarmTime * 1000);
   }
 
   /**
