@@ -5,6 +5,7 @@
   "version": "0.0.4-prerelease.0",
   "type": "module",
   "scripts": {
+    "predev": "rimraf .output/*",
     "dev": "wxt",
     "dev:firefox": "wxt -b firefox",
     "build": "wxt build",
@@ -50,6 +51,7 @@
     "react-error-boundary": "^6.0.0",
     "react-transition-state": "^2.3.1",
     "react-use-event-hook": "^0.9.6",
+    "rimraf": "^6.0.1",
     "use-immer": "^0.11.0"
   },
   "devDependencies": {
