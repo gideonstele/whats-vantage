@@ -8,6 +8,7 @@ import { SettingsView } from '../../views/settings';
 export const SettingsModal = ({ isOpen, onClose }: ClosableModalDefaultProps) => {
   return (
     <UnifiedPinnablePortal
+      integrated={false}
       title={i18n.t('MODULES.SETTINGS.TITLE')}
       isOpen={isOpen}
       onClose={onClose}

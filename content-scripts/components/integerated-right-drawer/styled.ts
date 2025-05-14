@@ -37,3 +37,13 @@ export const StyledIntegratedRightDrawerContent = styled.div({
   padding: '16px',
   height: 'calc(100% - 56px)',
 });
+
+export const StyledIntegratedRightDrawerContentWrapper = styled.section({
+  position: 'fixed',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  zIndex: 3000,
+  width: 'var(--wpp-right-drawer-width)',
+  boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
+});

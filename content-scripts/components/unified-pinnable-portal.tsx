@@ -1,10 +1,10 @@
 import { forwardRef, ReactNode } from 'react';
 
-import { AntdStyleResizableModal } from './antd-style-resiable-modal';
 import { useLocalStorageState, useMemoizedFn } from 'ahooks';
 
 import { SizePositionLeftTop } from '@components/modal-resizable-movable';
 
+import { AntdStyleResizableModal } from './antd-style-resiable-modal';
 import { IntegratedRightDrawer } from './integerated-right-drawer';
 
 export interface UnifiedPinnablePortalProps {
@@ -12,6 +12,10 @@ export interface UnifiedPinnablePortalProps {
   children?: ReactNode;
   modalStorageKey?: string;
   drawerWidth?: number;
+  /**
+   * 抽屉模式下，将UI插入到右侧UI，否则，悬浮并遮盖整个页面UI
+   */
+  integrated?: boolean;
   isOpen: boolean;
   onClose: () => void;
 
@@ -20,7 +24,10 @@ export interface UnifiedPinnablePortalProps {
 }
 
 export const UnifiedPinnablePortal = forwardRef<HTMLDivElement, UnifiedPinnablePortalProps>(
-  ({ title, children, modalStorageKey, drawerWidth, isOpen, onClose, defaultSize, initialSize }, ref) => {
+  (
+    { title, children, modalStorageKey, drawerWidth, integrated = true, isOpen, onClose, defaultSize, initialSize },
+    ref,
+  ) => {
     const [isPin, setIsPin] = useLocalStorageState('wvt.wpp.modal.pin', {
       defaultValue: true,
     });
@@ -43,6 +50,7 @@ export const UnifiedPinnablePortal = forwardRef<HTMLDivElement, UnifiedPinnableP
           allowTogglePin
           onUnpin={unPin}
           width={drawerWidth}
+          portal={integrated}
         >
           {children}
         </IntegratedRightDrawer>

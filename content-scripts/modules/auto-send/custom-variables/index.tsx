@@ -9,6 +9,7 @@ import { ModalBodyViewLayout } from '../../../views/_/layout';
 export const CustomVariablesModal = ({ isOpen, onClose }: ClosableModalDefaultProps) => {
   return (
     <UnifiedPinnablePortal
+      integrated={false}
       title={i18n.t('MODULES.CUSTOM_VARIABLES.TITLE')}
       isOpen={isOpen}
       onClose={onClose}

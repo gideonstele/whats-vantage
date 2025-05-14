@@ -10,6 +10,7 @@ export const ContactsModal = ({ isOpen, onClose }: ClosableModalDefaultProps) =>
     <PaginatedContactsProvider>
       <SelectedContactsProvider>
         <UnifiedPinnablePortal
+          integrated={false}
           title={i18n.t('MODULES.CONTACTS.MENUS.MANAGEMENT')}
           modalStorageKey="wvt.modal.contacts"
           isOpen={isOpen}
