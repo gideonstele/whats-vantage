@@ -10,6 +10,7 @@ import { PortalDomContainer, useWhatsAppContainerDom } from '../../dom/external'
 import {
   StyledIntegratedRightDrawer,
   StyledIntegratedRightDrawerContent,
+  StyledIntegratedRightDrawerContentWrapper,
   StyledIntegratedRightDrawerHeader,
   StyledIntegratedRightDrawerHeaderHandle,
   StyledIntegratedRightDrawerHeaderTitle,
@@ -22,13 +23,13 @@ export interface IntegratedRightDrawerProps {
   isOpen: boolean;
   width?: number;
   allowTogglePin?: boolean;
+  portal?: boolean;
   onClose: () => void;
-
   onUnpin?: () => void;
 }
 
 export const IntegratedRightDrawer = forwardRef<HTMLDivElement, IntegratedRightDrawerProps>(
-  ({ children, title, width = 360, allowTogglePin, isOpen, onClose, onUnpin }, ref) => {
+  ({ children, title, width = 360, allowTogglePin, portal = true, isOpen, onClose, onUnpin }, ref) => {
     const { transitionClassName, isMounted } = useToggleTransition(isOpen, width);
 
     const extraRender = useMemo(() => {
@@ -52,25 +53,33 @@ export const IntegratedRightDrawer = forwardRef<HTMLDivElement, IntegratedRightD
       );
     }, [allowTogglePin, onClose, onUnpin]);
 
-    return (
+    const renderContent = useMemo(() => {
+      return isMounted ? (
+        <StyledIntegratedRightDrawer
+          ref={ref}
+          style={{ '--wpp-right-drawer-width': `${width}px` } as CSSProperties}
+          className={clsx(transitionClassName)}
+        >
+          <StyledIntegratedRightDrawerHeader>
+            <StyledIntegratedRightDrawerHeaderTitle>{title}</StyledIntegratedRightDrawerHeaderTitle>
+            <StyledIntegratedRightDrawerHeaderHandle>{extraRender}</StyledIntegratedRightDrawerHeaderHandle>
+          </StyledIntegratedRightDrawerHeader>
+          <StyledIntegratedRightDrawerContent>{children}</StyledIntegratedRightDrawerContent>
+        </StyledIntegratedRightDrawer>
+      ) : null;
+    }, [children, extraRender, isMounted, ref, title, transitionClassName, width]);
+
+    return portal ? (
       <PortalDomContainer
         useDomHooks={useWhatsAppContainerDom}
         portalKey="wvt.wpp.right-drawer"
       >
-        {isMounted ? (
-          <StyledIntegratedRightDrawer
-            ref={ref}
-            style={{ '--wpp-right-drawer-width': `${width}px` } as CSSProperties}
-            className={clsx(transitionClassName)}
-          >
-            <StyledIntegratedRightDrawerHeader>
-              <StyledIntegratedRightDrawerHeaderTitle>{title}</StyledIntegratedRightDrawerHeaderTitle>
-              <StyledIntegratedRightDrawerHeaderHandle>{extraRender}</StyledIntegratedRightDrawerHeaderHandle>
-            </StyledIntegratedRightDrawerHeader>
-            <StyledIntegratedRightDrawerContent>{children}</StyledIntegratedRightDrawerContent>
-          </StyledIntegratedRightDrawer>
-        ) : null}
+        {renderContent}
       </PortalDomContainer>
+    ) : (
+      <StyledIntegratedRightDrawerContentWrapper style={{ '--wpp-right-drawer-width': `${width}px` } as CSSProperties}>
+        {renderContent}
+      </StyledIntegratedRightDrawerContentWrapper>
     );
   },
 );

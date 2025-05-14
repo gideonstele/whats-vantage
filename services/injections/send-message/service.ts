@@ -140,7 +140,7 @@ export class SendMessageService {
         };
       }
       if (this.isProcessing) {
-        this.processCurrentItem();
+        this.processCurrentItem(ignoreDelay);
       }
       this.notifyUpdate();
       return {
