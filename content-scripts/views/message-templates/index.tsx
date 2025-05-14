@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 
 import { useSize } from 'ahooks';
-import { Button, Flex, Popconfirm, Result, Space, Table } from 'antd';
+import { Button, Flex, Popconfirm, Result, Space, Table, Tooltip } from 'antd';
 import { ColumnType } from 'antd/es/table';
 
 import { TableUglyStyleOverrideWrapper } from '@content-scripts/components/antd-table-fixed.styled';
@@ -11,6 +11,7 @@ import { useQueryMessageTemplates } from '../../query/message-templates';
 
 import { TemplateAddButton } from './components/add-template-button';
 import { EditTemplateButton } from './components/edit-template-button';
+import { StyledTemplateCell } from './components/template-cell';
 import { useDeleteItem } from './hooks/use-delete-item';
 
 export interface MessageTemplatesViewProps {
@@ -47,6 +48,10 @@ export const MessageTemplatesView = ({ parentRef, fixedHeightValue = 0 }: Messag
         dataIndex: 'content',
         key: 'content',
         ellipsis: true,
+        align: 'center',
+        render: (content: string, _record) => {
+          return <StyledTemplateCell>{content}</StyledTemplateCell>;
+        },
       },
       {
         title: '操作',
