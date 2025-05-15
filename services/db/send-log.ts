@@ -7,7 +7,7 @@ import { FormattedContact } from 'types/domain/contacts';
 import { SendLogItem } from 'types/domain/send-logs';
 
 const sendLogsTableName = 'sendLogs' as const;
-const sendLogsTableColumnLiteral = '++id,contact,message,attachmentCount,success,reason';
+const sendLogsTableColumnLiteral = '++id,contact,message,attachmentCount,createdAt,success,reason';
 
 class SendLogModel extends Entity<SendLogService> implements SendLogItem {
   id!: number;
@@ -69,6 +69,8 @@ export class SendLogService extends Dexie {
     const querying = this.sendLogs;
     let collection = querying.toCollection();
 
+    console.log('searchs:', searchs);
+
     if (orderBy && orderBy.length > 0) {
       for (const orderItem of orderBy) {
         const { field, order } = orderItem;
@@ -85,7 +87,11 @@ export class SendLogService extends Dexie {
       for (const searchItem of searchs) {
         const { key, search } = searchItem;
 
+        console.log('searchItem:', 'key:', key, 'value:', search);
+
         collection = collection.filter((item) => {
+          console.log('item[key]:', item[key]);
+
           if (typeof item[key] === 'string') {
             const isMatch = fuzzyMatch(item[key], search);
             return isMatch;

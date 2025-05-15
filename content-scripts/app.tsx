@@ -5,6 +5,7 @@ import { ModalsControllerProvider } from './contexts/modal-controller-context';
 import { AutoSendMenu } from './modules/auto-send/menu-index';
 import { AccountsMenu } from './modules/contacts/menu-index';
 import { configModals } from './modules/modals';
+import { SendLogsMenu } from './modules/send-logs-root/menu-index';
 import { SettingsMenu } from './modules/settings/menu-index';
 import { AutoSendStatusModal } from './views/status-modal';
 
@@ -15,6 +16,7 @@ export const ContentScriptsApp = () => {
         <MenubarLayout>
           <AccountsMenu />
           <AutoSendMenu />
+          <SendLogsMenu />
           <SettingsMenu />
         </MenubarLayout>
       </IntegratedMenuLayout>

@@ -10,7 +10,7 @@ export const initWppContentScriptsMessager = () => {
 
     await DailySentCount.add(1);
 
-    wppQueryClient.invalidateQueries({ queryKey: ['background/db/message-logs/list'] });
+    wppQueryClient.invalidateQueries({ queryKey: ['background/db/send-logs/list'] });
   });
 
   onMessageToWppContentScripts('content-scripts:process-join-group:add-count', async ({ data }) => {
